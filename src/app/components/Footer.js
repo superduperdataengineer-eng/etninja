@@ -8,7 +8,7 @@ export default function Footer() {
         marginTop: '2rem',
       }}
     >
-      &copy; {new Date().getFullYear()} TEACHTUDORCOM
+      &copy; {new Date().getFullYear()} ETNINJA.COM
     </footer>
   );
 }

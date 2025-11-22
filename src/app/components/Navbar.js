@@ -1030,7 +1030,7 @@ export default function Navbar() {
   return (
     <>
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-        <div className="logo">TEACHTUDOR</div>
+        <div className="logo">ETNINJA</div>
 
         <div className={`links ${open ? 'open' : ''}`}>
           <a href="/">HOME</a>
