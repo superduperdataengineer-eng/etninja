@@ -83,14 +83,14 @@ import Providers from './Providers';
 
 // ✅ Server-side metadata export
 export const metadata = {
-  title: 'TeachTudor.com',
-  description: 'TeachTudor – ESL resources, tools, and learning platform',
+  title: 'ETNINJA',
+  description: 'ETNINJA – ESL resources, tools, and learning platform',
   icons: { icon: '/favicon.ico' },
   openGraph: {
-    title: 'TeachTudor.com',
-    description: 'TeachTudor – ESL resources, tools, and learning platform',
-    url: 'https://www.teachtudor.com',
-    siteName: 'TeachTudor',
+    title: 'ETNINJA.COM',
+    description: 'ETNINJA.COM – ESL resources, tools, and learning platform',
+    url: 'ETNINJA.COM',
+    siteName: 'ETNINJA',
     images: [{ url: '/images/og-image.png', width: 1200, height: 630 }],
     locale: 'en_US',
     type: 'website',
