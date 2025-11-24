@@ -368,18 +368,18 @@ a:hover {
 
   /* Target the word panel */
   .vocab-word-panel {
-    width: 95%;          /* shrink width to fit screen */
-    max-width: 320px;    /* optional: limit max width */
-    height: auto;        /* allow height to adjust */
-    grid-template-columns: repeat(2, 1fr); /* 2 columns instead of 3 for small screens */
-    grid-gap: 12px;      /* slightly smaller gap */
-    margin-top: 20px;    /* push it below the image */
+    width: 95% !important;          /* shrink to fit phone */
+    max-width: 320px !important;    /* optional cap */
+    grid-template-columns: repeat(2, 1fr) !important; /* 2 columns on small screens */
+    gap: 12px !important;           /* smaller gap */
+    margin-top: 20px !important;
+    height: auto !important;        /* let it grow naturally */
   }
 
   .vocab-word-panel > div {
-    width: 100%;       /* make each word block take full column */
-    height: 80px;      /* slightly smaller than desktop */
-    font-size: 0.9rem; /* smaller font for small screens */
+    width: 100% !important;         /* fill each column */
+    height: 80px !important;        /* smaller for phone */
+    font-size: 0.9rem !important;
   }
 
 
