@@ -153,6 +153,53 @@ export default function HomePage() {
           <CharacterFBX />
         </div>
       </div>
+      {/* Inline styles for this page */}
+      <style jsx>{`
+        .responsive-wrapper {
+          max-width: 100%;
+          padding: 10px;
+          margin: 0 auto;
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-start;
+        }
+
+        h1, p, button {
+          max-width: 100%;
+          text-align: center;
+        }
+
+        button {
+          margin-top: 10px;
+        }
+
+        /* Responsive tweaks */
+        @media (max-width: 768px) {
+          .responsive-wrapper {
+            padding: 5px;
+          }
+
+          h1 {
+            font-size: 1.2rem;
+          }
+
+          p, button {
+            font-size: 0.9rem;
+          }
+        }
+
+        @media (max-width: 480px) {
+          h1 {
+            font-size: 1rem;
+          }
+
+          p, button {
+            font-size: 0.8rem;
+          }
+        }
+      `}</style>
     </div>
   );
 }
