@@ -5,6 +5,7 @@ import { adList } from './components/adList';
 import { blogList } from './components/blogList';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import CharacterFBX from './components/CharacterFBX';
 
 export default function HomePage() {
   const [scrollX, setScrollX] = useState(0);
@@ -140,18 +141,18 @@ export default function HomePage() {
       </main>
             {/* Main Picture Below Blogs */}
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem', marginBottom: '2rem' }}>
-        <img
-          src="/logos/ETNINJALOGO.png"
-          alt="ET Ninja Logo"
+        <div
           style={{
             width: '100%',
-            maxWidth: '400px',   // adjust size here
-            borderRadius: '12px',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+            maxWidth: '400px',
+            height: '400px',
+            marginTop: '2rem',
+            marginBottom: '2rem',
           }}
-        />
+        >
+          <CharacterFBX />
+        </div>
       </div>
-
     </div>
   );
 }

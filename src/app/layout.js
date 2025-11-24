@@ -82,10 +82,12 @@ import { Analytics } from '@vercel/analytics/next';
 import Providers from './Providers';
 
 // ✅ Server-side metadata export
+// ✅ Server-side metadata export
 export const metadata = {
   title: 'ETNINJA',
   description: 'ETNINJA – ESL resources, tools, and learning platform',
   icons: { icon: '/favicon.ico' },
+  metadataBase: new URL('https://etninja.com'), // <-- added
   openGraph: {
     title: 'ETNINJA.COM',
     description: 'ETNINJA.COM – ESL resources, tools, and learning platform',
@@ -96,6 +98,7 @@ export const metadata = {
     type: 'website',
   },
 };
+
 
 export default function RootLayout({ children }) {
   return (

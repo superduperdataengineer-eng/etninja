@@ -1,0 +1,927 @@
+// 'use client';
+
+// import * as THREE from 'three';
+// import { Canvas, useFrame } from '@react-three/fiber';
+// import { OrbitControls, useFBX } from '@react-three/drei';
+// import { useEffect, useRef } from 'react';
+// import React from 'react';
+
+// function Model() {
+//   const mixer = useRef(null);
+
+//   const model = useFBX('/character/myCharacter.fbx');
+//   const idle = useFBX('/character/idle.fbx');
+
+//   useEffect(() => {
+//     mixer.current = new THREE.AnimationMixer(model);
+
+//     // Name clips
+//     idle.animations[0].name = 'Idle';
+
+//     // Play idle animation
+//     const action = mixer.current.clipAction(idle.animations[0]);
+//     action.play();
+//   }, [model, idle]);
+
+//   useFrame((_, delta) => {
+//     if (mixer.current) mixer.current.update(delta);
+//   });
+
+//   model.scale.set(0.02, 0.02, 0.02);
+//   model.position.y = -1;
+
+//   return React.createElement('primitive', { object: model });
+// }
+
+// export default function CharacterFBX() {
+//   return React.createElement(
+//     Canvas,
+//     {
+//       style: {
+//         width: '100%',
+//         height: '400px',
+//       },
+//     },
+//     [
+//       React.createElement('ambientLight', { intensity: 0.8, key: 'amb' }),
+//       React.createElement('directionalLight', {
+//         position: [5, 5, 5],
+//         key: 'dir',
+//       }),
+//       React.createElement(Model, { key: 'model' }),
+//       React.createElement(OrbitControls, {
+//         enablePan: false,
+//         key: 'orbit',
+//       }),
+//     ]
+//   );
+// }
+
+//code 2
+// 'use client';
+
+// import * as THREE from 'three';
+// import { Canvas, useFrame } from '@react-three/fiber';
+// import { OrbitControls, useGLTF } from '@react-three/drei';
+// import { useEffect, useRef } from 'react';
+// import React from 'react';
+
+// // Preload base model + animations
+// useGLTF.preload('/character/originalfbx.glb');
+// useGLTF.preload('/character/idle.glb');
+// useGLTF.preload('/character/drinking.glb');
+// useGLTF.preload('/character/jumping_up.glb');
+// useGLTF.preload('/character/picking_up.glb');
+// useGLTF.preload('/character/pulling_rope.glb');
+// useGLTF.preload('/character/push.glb');
+// useGLTF.preload('/character/running.glb');
+// useGLTF.preload('/character/stand_to_sit.glb');
+// useGLTF.preload('/character/tripping.glb');
+// useGLTF.preload('/character/turn_around.glb');
+// useGLTF.preload('/character/walking.glb');
+
+// function Model() {
+//   const mixer = useRef(null);
+
+//   const { scene: model } = useGLTF('/character/originalfbx.glb');
+//   const idleData = useGLTF('/character/idle.glb');
+
+//   useEffect(() => {
+//     mixer.current = new THREE.AnimationMixer(model);
+
+//     const idleClip = idleData.animations[0];
+//     idleClip.name = 'Idle';
+
+//     const action =  mixer.current.clipAction(idleClip);
+//     action.play();
+//   }, [model, idleData]);
+
+//   useFrame((_, delta) => {
+//     if (mixer.current) mixer.current.update(delta);
+//   });
+
+//   model.scale.set(10, 10, 10);
+//   model.position.y = -1;
+
+//   return React.createElement('primitive', { object: model });
+// }
+
+// export default function CharacterGLB() {
+//   return React.createElement(
+//     Canvas,
+//     {
+//       style: {
+//         width: '100%',
+//         height: '400px',
+//       },
+//     },
+//     [
+//       React.createElement('ambientLight', { intensity: 0.8, key: 'amb' }),
+//       React.createElement('directionalLight', {
+//         position: [5, 5, 5],
+//         key: 'dir',
+//       }),
+//       React.createElement(Model, { key: 'model' }),
+//       React.createElement(OrbitControls, {
+//         enablePan: false,
+//         key: 'orbit',
+//       }),
+//     ]
+//   );
+// }
+
+//code 3
+// 'use client';
+
+// import * as THREE from 'three';
+// import { Canvas, useFrame } from '@react-three/fiber';
+// import { OrbitControls, useGLTF } from '@react-three/drei';
+// import React, { useEffect, useRef } from 'react';
+
+// // ---------------------------------------------------------
+// // 1. ANIMATIONS LIST – ORDER IS ALSO KEYBOARD ORDER
+// // ---------------------------------------------------------
+// const animations = {
+//   idle: '/character/idle.glb',
+//   drinking: '/character/drinking.glb',
+//   jumping_up: '/character/jumping_up.glb',
+//   picking_up: '/character/picking_up.glb',
+//   pulling_rope: '/character/pulling_rope.glb',
+//   push: '/character/push.glb',
+//   running: '/character/running.glb',
+//   stand_to_sit: '/character/stand_to_sit.glb',
+//   tripping: '/character/tripping.glb',
+//   turn_around: '/character/turn_around.glb',
+//   walking: '/character/walking.glb'
+// };
+
+// // Preload everything
+// useGLTF.preload('/character/originalfbx.glb');
+// Object.values(animations).forEach(path => useGLTF.preload(path));
+
+
+// // ---------------------------------------------------------
+// // 2. MODEL COMPONENT
+// // ---------------------------------------------------------
+// function Model({ onPlay }) {
+//   const mixer = useRef(null);
+//   const currentAction = useRef(null);
+//   const clips = useRef({});
+
+//   // Load the base model
+//   const { scene: model } = useGLTF('/character/originalfbx.glb');
+
+//   // Load ALL animations ONLY ONCE
+//   for (const [name, path] of Object.entries(animations)) {
+//     const { animations: gltfClips } = useGLTF(path);
+//     clips.current[name] = gltfClips[0];
+//   }
+
+//   // Play animation method
+//   function playAnimation(name) {
+//     const clip = clips.current[name];
+//     if (!clip) return;
+
+//     if (mixer.current) {
+//       if (currentAction.current) currentAction.current.stop();
+//       const action = mixer.current.clipAction(clip);
+//       currentAction.current = action;
+//       action.reset().fadeIn(0.15).play();
+//     }
+//   }
+
+//   // Setup mixer
+//   useEffect(() => {
+//     mixer.current = new THREE.AnimationMixer(model);
+//     playAnimation('idle');
+//     onPlay(playAnimation);
+//   }, [model, onPlay]);
+
+//   // Update mixer
+//   useFrame((_, delta) => {
+//     mixer.current?.update(delta);
+//   });
+
+//   // Size and position
+//   model.scale.set(2, 2, 2);
+//   model.position.set(0, 0, 0);
+
+//   model.rotation.y = -Math.PI/2;
+
+//   return <primitive object={model} />;
+// }
+
+
+// // ---------------------------------------------------------
+// // 3. MAIN COMPONENT
+// // ---------------------------------------------------------
+// export default function CharacterGLB() {
+//   const play = useRef(null);
+
+//   const ACTION_NAMES = Object.keys(animations);
+
+//   // Keyboard mapping
+//   const KEY_MAP = [
+//     "q","w","e","r","t","y","u","i","o","p",
+//     "a","s","d","f","g","h","j","k","l",
+//     "z","x","c","v","b","n","m"
+//   ];
+
+//   // Handle keyboard events
+//   useEffect(() => {
+//     function handleKey(e) {
+//       const index = KEY_MAP.indexOf(e.key.toLowerCase());
+//       if (index >= 0 && index < ACTION_NAMES.length) {
+//         play.current?.(ACTION_NAMES[index]);
+//       }
+//     }
+
+//     window.addEventListener("keydown", handleKey);
+//     return () => window.removeEventListener("keydown", handleKey);
+//   }, []);
+
+//   // Button Styling
+//   const btnStyle = {
+//     padding: '10px 14px',
+//     margin: '6px 0',
+//     borderRadius: '8px',
+//     background: '#ffa600',
+//     border: 'none',
+//     color: 'white',
+//     fontWeight: 'bold',
+//     cursor: 'pointer',
+//     width: '150px',
+//     fontSize: '14px'
+//   };
+
+//   return (
+//     <div style={{
+//       width: '100%',
+//       display: 'flex',
+//       justifyContent: 'center',
+//       marginTop: '-80px', // pulled UP from footer
+//       marginBottom: '220px'
+//     }}>
+
+//       {/* LEFT BUTTONS */}
+//       <div style={{ display: 'flex', flexDirection: 'column', marginRight: 25 }}>
+//         {ACTION_NAMES.map((name, index) => (
+//           <button
+//             key={'L-'+name}
+//             style={btnStyle}
+//             onClick={() => play.current?.(name)}
+//           >
+//             {name.replace(/_/g, " ").toUpperCase()}
+//           </button>
+//         ))}
+//       </div>
+
+//       {/* MODEL */}
+//       <div style={{ width: 600, height: 500 }}>
+//         <Canvas
+//           camera={{ position: [0, 1.5, 5], fov: 40 }}
+//           style={{ width: '100%', height: '100%' }}
+//         >
+//           {/* FRONT LIGHT (from the screen toward the model) */}
+//           <directionalLight
+//             position={[0, 0, 5]}
+//             intensity={2.2}
+//           />
+
+//           {/* Fill light left */}
+//           <directionalLight
+//             position={[-5, 3, 2]}
+//             intensity={15.0}
+//           />
+
+//           {/* Fill light right */}
+//           <directionalLight
+//             position={[5, 3, 2]}
+//             intensity={15.0}
+//           />
+
+//           {/* Soft ambient */}
+//           <ambientLight intensity={0.5} />
+
+//           <Model onPlay={(fn) => (play.current = fn)} />
+//           <OrbitControls enablePan={false} />
+//         </Canvas>
+//       </div>
+
+//       {/* RIGHT BUTTONS */}
+//       <div style={{ display: 'flex', flexDirection: 'column', marginLeft: 25 }}>
+//         {ACTION_NAMES.map((name, index) => (
+//           <button
+//             key={'R-'+name}
+//             style={btnStyle}
+//             onClick={() => play.current?.(name)}
+//           >
+//             {name.replace(/_/g, " ").toUpperCase()}
+//           </button>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// }
+// 'use client';
+
+// import * as THREE from 'three';
+// import { Canvas, useFrame } from '@react-three/fiber';
+// import { OrbitControls, useGLTF } from '@react-three/drei';
+// import React, { useEffect, useRef, Suspense, useState } from 'react';
+
+// const animations = {
+//   idle: '/character/idle.glb',
+//   drinking: '/character/drinking.glb',
+//   jumping_up: '/character/jumping_up.glb',
+//   picking_up: '/character/picking_up.glb',
+//   pulling_rope: '/character/pulling_rope.glb',
+//   push: '/character/push.glb',
+//   running: '/character/running.glb',
+//   stand_to_sit: '/character/stand_to_sit.glb',
+//   tripping: '/character/tripping.glb',
+//   turn_around: '/character/turn_around.glb',
+//   walking: '/character/walking.glb'
+// };
+
+// // Preload all GLBs
+// useGLTF.preload('/character/originalfbx.glb');
+// Object.values(animations).forEach(path => useGLTF.preload(path));
+
+// function Model({ onPlayReady }) {
+//   const mixer = useRef(null);
+//   const currentAction = useRef(null);
+
+//   // ✅ Load all GLBs individually (top-level hooks only)
+//   const modelGLB = useGLTF('/character/originalfbx.glb');
+//   const idleGLB = useGLTF(animations.idle);
+//   const drinkingGLB = useGLTF(animations.drinking);
+//   const jumpingGLB = useGLTF(animations.jumping_up);
+//   const pickingGLB = useGLTF(animations.picking_up);
+//   const pullingGLB = useGLTF(animations.pulling_rope);
+//   const pushGLB = useGLTF(animations.push);
+//   const runningGLB = useGLTF(animations.running);
+//   const standGLB = useGLTF(animations.stand_to_sit);
+//   const trippingGLB = useGLTF(animations.tripping);
+//   const turnGLB = useGLTF(animations.turn_around);
+//   const walkingGLB = useGLTF(animations.walking);
+
+//   // ✅ Build clips object outside loops/hooks
+//   const clips = {
+//     idle: idleGLB.animations[0],
+//     drinking: drinkingGLB.animations[0],
+//     jumping_up: jumpingGLB.animations[0],
+//     picking_up: pickingGLB.animations[0],
+//     pulling_rope: pullingGLB.animations[0],
+//     push: pushGLB.animations[0],
+//     running: runningGLB.animations[0],
+//     stand_to_sit: standGLB.animations[0],
+//     tripping: trippingGLB.animations[0],
+//     turn_around: turnGLB.animations[0],
+//     walking: walkingGLB.animations[0]
+//   };
+
+//   function playAnimation(name) {
+//     const clip = clips[name];
+//     if (!clip || !mixer.current) return;
+//     if (currentAction.current) currentAction.current.stop();
+//     const action = mixer.current.clipAction(clip);
+//     currentAction.current = action;
+//     action.reset().fadeIn(0.15).play();
+//   }
+
+//   // ✅ Setup mixer after GLB is loaded
+//   useEffect(() => {
+//     mixer.current = new THREE.AnimationMixer(modelGLB.scene);
+//     onPlayReady(playAnimation);
+//     playAnimation('idle');
+//   }, [modelGLB]);
+
+//   useFrame((_, delta) => mixer.current?.update(delta));
+
+//   modelGLB.scene.scale.set(2, 2, 2);
+//   modelGLB.scene.rotation.y = -Math.PI / 2;
+
+//   return <primitive object={modelGLB.scene} />;
+// }
+
+// export default function CharacterGLB() {
+//   const [playFn, setPlayFn] = useState(null);
+//   const ACTION_NAMES = Object.keys(animations);
+//   const KEY_MAP = [
+//     "q","w","e","r","t","y","u","i","o","p",
+//     "a","s","d","f","g","h","j","k","l",
+//     "z","x","c","v","b","n","m"
+//   ];
+
+//   // ✅ Keyboard listener
+//   useEffect(() => {
+//     function handleKey(e) {
+//       const index = KEY_MAP.indexOf(e.key.toLowerCase());
+//       if (index >= 0 && index < ACTION_NAMES.length && playFn) {
+//         playFn(ACTION_NAMES[index]);
+//       }
+//     }
+//     window.addEventListener("keydown", handleKey);
+//     return () => window.removeEventListener("keydown", handleKey);
+//   }, [playFn]);
+
+//   const btnStyle = {
+//     padding: '10px 14px',
+//     margin: '6px 0',
+//     borderRadius: '8px',
+//     background: '#ffa600',
+//     border: 'none',
+//     color: 'white',
+//     fontWeight: 'bold',
+//     cursor: 'pointer',
+//     width: '150px',
+//     fontSize: '14px'
+//   };
+
+//   return (
+//     <div style={{ display: 'flex', justifyContent: 'center', marginTop: '-80px', marginBottom: '220px' }}>
+//       <div style={{ display: 'flex', flexDirection: 'column', marginRight: 25 }}>
+//         {ACTION_NAMES.map(name => (
+//           <button key={name} style={btnStyle} onClick={() => playFn && playFn(name)}>
+//             {name.replace(/_/g, " ").toUpperCase()}
+//           </button>
+//         ))}
+//       </div>
+
+//       <div style={{ width: 600, height: 500 }}>
+//         <Suspense fallback={null}>
+//           <Canvas camera={{ position: [0, 1.5, 5], fov: 40 }} style={{ width: '100%', height: '100%' }}>
+//             <directionalLight position={[0, 0, 5]} intensity={1.2} />
+//             <directionalLight position={[-5, 3, 2]} intensity={0.6} />
+//             <directionalLight position={[5, 3, 2]} intensity={0.6} />
+//             <ambientLight intensity={0.5} />
+//             <Model onPlayReady={fn => setPlayFn(() => fn)} />
+//             <OrbitControls enablePan={false} />
+//           </Canvas>
+//         </Suspense>
+//       </div>
+
+//       <div style={{ display: 'flex', flexDirection: 'column', marginLeft: 25 }}>
+//         {ACTION_NAMES.map(name => (
+//           <button key={name+'r'} style={btnStyle} onClick={() => playFn && playFn(name)}>
+//             {name.replace(/_/g, " ").toUpperCase()}
+//           </button>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// }
+
+//GLB VERSION BUT DOESN'T WORK
+// 'use client';
+
+// import * as THREE from 'three';
+// import { Canvas, useFrame } from '@react-three/fiber';
+// import { OrbitControls, useGLTF } from '@react-three/drei';
+// import React, { useEffect, useRef, useState, Suspense } from 'react';
+
+// const animations = {
+//   idle: '/character/idle.glb',
+//   // drinking: '/character/drinking.glb',
+//   // jumping_up: '/character/jumping_up.glb',
+//   // picking_up: '/character/picking_up.glb',
+//   // pulling_rope: '/character/pulling_rope.glb',
+//   // push: '/character/push.glb',
+//   running: '/character/running.glb',
+//   // stand_to_sit: '/character/stand_to_sit.glb',
+//   // tripping: '/character/tripping.glb',
+//   // turn_around: '/character/turn_around.glb',
+//   walking: '/character/walking.glb'
+// };
+
+// // Preload everything
+// useGLTF.preload('/character/ORIGINAL.glb');
+// Object.values(animations).forEach(path => useGLTF.preload(path));
+
+// function Model({ onPlayReady }) {
+//   const mixer = useRef(null);
+//   const currentAction = useRef(null);
+
+//   // Load model
+//   const modelGLB = useGLTF('/character/ORIGINAL.glb');
+
+//   // Load all animation GLBs at top level
+//   const idleGLB = useGLTF(animations.idle);
+//   const drinkingGLB = useGLTF(animations.drinking);
+//   const jumpingGLB = useGLTF(animations.jumping_up);
+//   const pickingGLB = useGLTF(animations.picking_up);
+//   const pullingGLB = useGLTF(animations.pulling_rope);
+//   const pushGLB = useGLTF(animations.push);
+//   const runningGLB = useGLTF(animations.running);
+//   const standGLB = useGLTF(animations.stand_to_sit);
+//   const trippingGLB = useGLTF(animations.tripping);
+//   const turnGLB = useGLTF(animations.turn_around);
+//   const walkingGLB = useGLTF(animations.walking);
+
+//   // Store clips
+//   const clips = {
+//     idle: idleGLB.animations[0],
+//     drinking: drinkingGLB.animations[0],
+//     jumping_up: jumpingGLB.animations[0],
+//     picking_up: pickingGLB.animations[0],
+//     pulling_rope: pullingGLB.animations[0],
+//     push: pushGLB.animations[0],
+//     running: runningGLB.animations[0],
+//     stand_to_sit: standGLB.animations[0],
+//     tripping: trippingGLB.animations[0],
+//     turn_around: turnGLB.animations[0],
+//     walking: walkingGLB.animations[0]
+//   };
+
+//   // Play animation function
+//   function playAnimation(name) {
+//     const clip = clips[name];
+//     if (!clip || !mixer.current) return;
+//     if (currentAction.current) currentAction.current.stop();
+//     const action = mixer.current.clipAction(clip, modelGLB.scene);
+//     currentAction.current = action;
+//     action.reset().fadeIn(0.15).play();
+//   }
+
+//   useEffect(() => {
+//     mixer.current = new THREE.AnimationMixer(modelGLB.scene);
+//     onPlayReady(playAnimation); // give control to parent
+//     playAnimation('idle');
+//   }, [modelGLB]);
+
+//   useFrame((_, delta) => mixer.current?.update(delta));
+
+//   modelGLB.scene.scale.set(2, 2, 2);
+//   modelGLB.scene.rotation.y = -Math.PI / 2;
+
+//   return <primitive object={modelGLB.scene} />;
+// }
+
+// export default function CharacterGLB() {
+//   const [playFn, setPlayFn] = useState(null);
+//   const ACTION_NAMES = Object.keys(animations);
+//   const KEY_MAP = [
+//     "q","w","e","r","t","y","u","i","o","p",
+//     "a","s","d","f","g","h","j","k","l",
+//     "z","x","c","v","b","n","m"
+//   ];
+
+//   // Keyboard support
+//   useEffect(() => {
+//     function handleKey(e) {
+//       const index = KEY_MAP.indexOf(e.key.toLowerCase());
+//       if (index >= 0 && index < ACTION_NAMES.length && playFn) {
+//         playFn(ACTION_NAMES[index]);
+//       }
+//     }
+//     window.addEventListener('keydown', handleKey);
+//     return () => window.removeEventListener('keydown', handleKey);
+//   }, [playFn]);
+
+//   const btnStyle = {
+//     padding: '10px 14px',
+//     margin: '6px 0',
+//     borderRadius: '8px',
+//     background: '#ffa600',
+//     border: 'none',
+//     color: 'white',
+//     fontWeight: 'bold',
+//     cursor: 'pointer',
+//     width: '150px',
+//     fontSize: '14px'
+//   };
+
+//   const buttons = ACTION_NAMES.map(name => (
+//     <button key={name} style={btnStyle} onClick={() => playFn && playFn(name)}>
+//       {name.replace(/_/g, " ").toUpperCase()}
+//     </button>
+//   ));
+
+//   return (
+//     <div style={{ display: 'flex', justifyContent: 'center', marginTop: '-80px', marginBottom: '220px' }}>
+//       <div style={{ display: 'flex', flexDirection: 'column', marginRight: 25 }}>
+//         {buttons}
+//       </div>
+
+//       <div style={{ width: 600, height: 500 }}>
+//         <Suspense fallback={null}>
+//           <Canvas camera={{ position: [0, 1.5, 5], fov: 40 }} style={{ width: '100%', height: '100%' }}>
+//             <directionalLight position={[0, 0, 5]} intensity={1.2} />
+//             <directionalLight position={[-5, 3, 2]} intensity={0.6} />
+//             <directionalLight position={[5, 3, 2]} intensity={0.6} />
+//             <ambientLight intensity={0.5} />
+//             <Model onPlayReady={fn => setPlayFn(() => fn)} />
+//             <OrbitControls enablePan={false} />
+//           </Canvas>
+//         </Suspense>
+//       </div>
+
+//       <div style={{ display: 'flex', flexDirection: 'column', marginLeft: 25 }}>
+//         {buttons}
+//       </div>
+//     </div>
+//   );
+// }
+
+
+//FBX slow synchronous issues delayed buttons
+// 'use client';
+
+// import * as THREE from 'three';
+// import { Canvas, useFrame } from '@react-three/fiber';
+// import { OrbitControls } from '@react-three/drei';
+// import React, { useEffect, useRef, useState, Suspense } from 'react';
+// import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
+
+// // ---------------------------------------------------
+// // ANIMATION FILES (FBX)
+// // ---------------------------------------------------
+// const animations = {
+//   idle: '/character/Idle.fbx',
+//   walk: '/character/Walking.fbx',
+//   run: '/character/Running.fbx'
+// };
+
+// // ---------------------------------------------------
+// // MODEL COMPONENT
+// // ---------------------------------------------------
+// function FBXModel({ onReady }) {
+//   const mixer = useRef(null);
+//   const currentAction = useRef(null);
+//   const actions = useRef({});
+//   const group = useRef();
+
+//   // Load FBX model
+//   useEffect(() => {
+//     const loader = new FBXLoader();
+
+//     loader.load('/character/riggedORIGINAL.fbx', (model) => {
+//       model.scale.set(0.01, 0.01, 0.01);
+//       // model.rotation.y = Math.PI;
+//       group.current.add(model);
+
+//       mixer.current = new THREE.AnimationMixer(model);
+
+//       // Load animations
+//       const loadAnim = (name, file) => {
+//         loader.load(file, (anim) => {
+//           const action = mixer.current.clipAction(anim.animations[0]);
+//           actions.current[name] = action;
+
+//           if (name === 'idle') {
+//             currentAction.current = action;
+//             action.play();
+//           }
+//         });
+//       };
+
+//       Object.entries(animations).forEach(([name, file]) =>
+//         loadAnim(name, file)
+//       );
+
+//       onReady((name) => playAnimation(name));
+//     });
+
+//     const playAnimation = (name) => {
+//       if (!actions.current[name]) return;
+
+//       if (currentAction.current) {
+//         currentAction.current.fadeOut(0.2);
+//       }
+
+//       const action = actions.current[name];
+//       currentAction.current = action;
+
+//       action.reset().fadeIn(0.2).play();
+//     };
+//   }, []);
+
+//   // Update mixer
+//   useFrame((_, delta) => {
+//     if (mixer.current) mixer.current.update(delta);
+//   });
+
+//   return <group ref={group} />;
+// }
+
+// // ---------------------------------------------------
+// // MAIN EXPORT
+// // ---------------------------------------------------
+// export default function CharacterFBX() {
+//   const [play, setPlay] = useState(null);
+
+//   const buttonStyle = {
+//     padding: '12px 18px',
+//     margin: '8px 0',
+//     borderRadius: '10px',
+//     background: '#007aff',
+//     border: 'none',
+//     color: 'white',
+//     fontWeight: 'bold',
+//     cursor: 'pointer',
+//     width: '160px',
+//     fontSize: '15px'
+//   };
+
+//   return (
+//     <div
+//   style={{
+//     display: 'flex',
+//     justifyContent: 'center', // centers the whole block horizontally
+//     alignItems: 'center',     // vertically centers canvas and buttons relative to each other
+//     gap: '40px',              // space between canvas and buttons
+//     marginTop: '-40px',        // optional spacing from top
+//   }}
+// >
+//   {/* CANVAS */}
+//   <div style={{ width: '700px', height: '600px', borderRadius: '12px', overflow: 'hidden' }}>
+//     <Canvas camera={{ position: [0, 1.2, 3], fov: 40 }}>
+//       <ambientLight intensity={0.4} />
+//       <directionalLight position={[5, 3, 5]} intensity={4.4} />
+//       <directionalLight position={[-5, 3, 5]} intensity={4.4} />
+//       <Suspense fallback={null}>
+//         <FBXModel onReady={(fn) => setPlay(() => fn)} />
+//       </Suspense>
+//       <OrbitControls enablePan={false} />
+//     </Canvas>
+//   </div>
+
+//   {/* BUTTONS ON THE RIGHT */}
+//   <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', marginTop: '-180px' }}>
+//     {Object.keys(animations).map((name) => (
+//       <button
+//         key={name}
+//         style={buttonStyle}
+//         onClick={() => play && play(name)}
+//       >
+//         {name.toUpperCase()}
+//       </button>
+//     ))}
+//   </div>
+// </div>
+
+
+//   );
+// }
+
+//fbx 
+'use client';
+
+import * as THREE from 'three';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { OrbitControls } from '@react-three/drei';
+import React, { useEffect, useRef, useState, Suspense } from 'react';
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
+
+// ---------------------------------------------------
+// ANIMATION FILES (FBX)
+// ---------------------------------------------------
+const animations = {
+  idle: '/character/Idle.fbx',
+  walk: '/character/Walking.fbx',
+  run: '/character/Running.fbx'
+};
+
+// ---------------------------------------------------
+// MODEL COMPONENT
+// ---------------------------------------------------
+function FBXModel({ onReady, setLoading }) {
+  const mixer = useRef(null);
+  const currentAction = useRef(null);
+  const actions = useRef({});
+  const group = useRef();
+
+  useEffect(() => {
+    const loader = new FBXLoader();
+
+    loader.load('/character/riggedORIGINAL.fbx', (model) => {
+      model.scale.set(0.01, 0.01, 0.01);
+      group.current.add(model);
+
+      mixer.current = new THREE.AnimationMixer(model);
+
+      // Load idle first
+      loader.load(animations.idle, (anim) => {
+        const action = mixer.current.clipAction(anim.animations[0]);
+        actions.current['idle'] = action;
+        currentAction.current = action;
+        action.play();
+
+        // Model ready, buttons can react
+        onReady((name) => playAnimation(name));
+        setLoading(false);
+      });
+
+      // Load other animations in the background
+      Object.entries(animations).forEach(([name, file]) => {
+        if (name === 'idle') return;
+        loader.load(file, (anim) => {
+          const action = mixer.current.clipAction(anim.animations[0]);
+          actions.current[name] = action;
+        });
+      });
+    });
+
+    const playAnimation = (name) => {
+      if (!actions.current[name]) return;
+      if (currentAction.current) currentAction.current.fadeOut(0.2);
+      const action = actions.current[name];
+      currentAction.current = action;
+      action.reset().fadeIn(0.2).play();
+    };
+  }, []);
+
+  useFrame((_, delta) => {
+    if (mixer.current) mixer.current.update(delta);
+  });
+
+  return <group ref={group} />;
+}
+
+// ---------------------------------------------------
+// MAIN EXPORT
+// ---------------------------------------------------
+export default function CharacterFBX() {
+  const [play, setPlay] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const buttonStyle = {
+    padding: '12px 18px',
+    margin: '8px 0',
+    borderRadius: '10px',
+    background: '#007aff',
+    border: 'none',
+    color: 'white',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    width: '160px',
+    fontSize: '15px'
+  };
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: '40px',
+        marginTop: '-40px',
+        position: 'relative'
+      }}
+    >
+      {/* CANVAS */}
+      <div style={{ width: '700px', height: '600px', borderRadius: '12px', overflow: 'hidden', position: 'relative' }}>
+        {loading && (
+          <div
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: '80px',
+              height: '80px',
+              border: '8px solid #ccc',
+              borderTop: '8px solid #007aff',
+              borderRadius: '50%',
+              animation: 'spin 1s linear infinite',
+              zIndex: 10
+            }}
+          />
+        )}
+
+        <Canvas camera={{ position: [0, 1.2, 3], fov: 40 }}>
+          <ambientLight intensity={0.4} />
+          <directionalLight position={[5, 3, 5]} intensity={4.4} />
+          <directionalLight position={[-5, 3, 5]} intensity={4.4} />
+          <Suspense fallback={null}>
+            <FBXModel onReady={(fn) => setPlay(() => fn)} setLoading={setLoading} />
+          </Suspense>
+          <OrbitControls enablePan={false} />
+        </Canvas>
+        <style>
+          {`
+            @keyframes spin {
+              0% { transform: translate(-50%, -50%) rotate(0deg); }
+              100% { transform: translate(-50%, -50%) rotate(360deg); }
+            }
+          `}
+        </style>
+      </div>
+
+      {/* BUTTONS ON THE RIGHT */}
+      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', marginTop: '-190px'}}>
+        {Object.keys(animations).map((name) => (
+          <button
+            key={name}
+            style={buttonStyle}
+            onClick={() => play && play(name)}
+          >
+            {name.toUpperCase()}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
