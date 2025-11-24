@@ -308,47 +308,39 @@ a:hover {
 
 /* ---------------- Responsive Tweaks ---------------- */
 /* ---------------- Global Mobile Responsiveness ---------------- */
-@media (max-width: 768px) {
-  html {
-    font-size: 14px; /* smaller base font */
+/* ---------------- SlideCreator Responsive ---------------- */
+@media (max-width: 1024px) {
+  /* Stack slide + word panel vertically on tablets */
+  .slide-creator-content-row {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 15px !important;
+    width: 100% !important;
   }
 
-  body, main, section, div {
-    padding: 0.5rem !important;
-    margin: 0 !important;
-  }
-
-  h1 {
-    font-size: 1.5rem !important;
-  }
-
-  h2 {
-    font-size: 1.25rem !important;
-  }
-
-  h3 {
-    font-size: 1.1rem !important;
-  }
-
-  p, span, a, li, button {
-    font-size: 0.9rem !important;
-  }
-
-  img, canvas, video {
-    max-width: 100% !important;
+  .slide-creator-slide {
+    width: 90% !important;
     height: auto !important;
   }
 
-  button, input, select, textarea {
-    width: 100% !important;
-    margin-bottom: 0.5rem !important;
-    padding: 0.5rem !important;
+  .slide-creator-word-panel {
+    width: 90% !important;
+    max-height: 250px !important;
+  }
+
+  .slide-creator-word-panel div {
     font-size: 0.9rem !important;
   }
 
-  .action-buttons, .slide-nav, .flex-container {
-    flex-direction: column !important;
-    gap: 0.5rem !important;
+  .slide-creator-buttons-row {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    justify-content: center !important;
+  }
+
+  input[type="text"] {
+    width: 100% !important;
+    max-width: 300px;
   }
 }
 
@@ -357,22 +349,25 @@ a:hover {
     font-size: 13px;
   }
 
-  h1 {
-    font-size: 1.3rem !important;
-  }
-
   h2 {
-    font-size: 1.1rem !important;
+    font-size: 1.2rem;
   }
 
-  h3 {
-    font-size: 1rem !important;
+  .slide-creator-slide {
+    width: 95% !important;
+    height: auto !important;
   }
 
-  p, span, a, li, button {
-    font-size: 0.85rem !important;
+  .slide-creator-word-panel {
+    width: 95% !important;
+    max-height: 200px !important;
+  }
+
+  .slide-creator-buttons-row button {
+    width: 100% !important;
   }
 }
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

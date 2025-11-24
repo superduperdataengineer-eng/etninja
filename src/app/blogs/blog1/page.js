@@ -3410,9 +3410,9 @@ for (let i = 0; i < slides.length; i++) {
       <div style={mainContainer}>
         {currentSlides.length > 0 && (
           <>
-            <div style={contentRow}>
+            <div style={contentRow} className="slide-creator-content-row">
               {/* Left: Slide */}
-              <div style={slideStyle} onClick={handleToggleFilename}>
+              <div style={slideStyle} className="slide-creator-slide" onClick={handleToggleFilename}>
                 {showFilename ? (
                   <p>{currentSlides[currentIndex].file.name.replace(/\.[^/.]+$/, "")}</p>
                 ) : (
@@ -3425,7 +3425,7 @@ for (let i = 0; i < slides.length; i++) {
               </div>
 
               {/* Right: Word panel */}
-              <div style={wordPanelStyle}>
+              <div style={wordPanelStyle} className="slide-creator-word-panel">
                 {words.map((word, index) => (
                   <div
                     key={index}
@@ -3452,7 +3452,7 @@ for (let i = 0; i < slides.length; i++) {
               </div>
             </div>
 
-            <div>
+            <div className="slide-creator-buttons-row">
               <button style={buttonStyle} onClick={handlePrevSlide}>
                 Previous
               </button>
