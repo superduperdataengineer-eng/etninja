@@ -3369,7 +3369,7 @@ for (let i = 0; i < slides.length; i++) {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+    <div className="slide-creator-wrapper" style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       {/* Top bar */}
       <div style={topBarStyle}>
         <div style={leftBarGroup}>

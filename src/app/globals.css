@@ -343,6 +343,10 @@ a:hover {
     max-width: 300px;
   }
 }
+@media (max-width: 768px) {
+  .slide-creator-wrapper {
+    display: none !important;
+  }
 
 @media (max-width: 480px) {
   html {
