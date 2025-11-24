@@ -141,6 +141,7 @@ export default function VocabQuiz() {
 
         {/* Word panel */}
         <div
+          className="vocab-word-panel"
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',
