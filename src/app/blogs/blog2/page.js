@@ -35,19 +35,19 @@ export default function Home() {
       .then((csvText) => {
         Papa.parse(csvText, {
           complete: (result) => {
-						const parsedWordsMap = new Map();
-						result.data.forEach((row) => {
-							if (!row.headword || !row.CEFR) {
-								console.warn("Invalid row:", row); // Log the problematic rows
+            const parsedWordsMap = new Map();
+            result.data.forEach((row) => {
+              if (!row.headword || !row.CEFR) {
+                console.warn("Invalid row:", row); // Log the problematic rows
                 return;
-							}
-							parsedWordsMap.set(row.headword, {
-								headword: row.headword.trim(),
-								CEFR: row.CEFR.trim().toUpperCase(),
-							});
-						});
+              }
+              parsedWordsMap.set(row.headword, {
+                headword: row.headword.trim(),
+                CEFR: row.CEFR.trim().toUpperCase(),
+              });
+            });
 
-						setWords(Array.from(parsedWordsMap.values()));
+            setWords(Array.from(parsedWordsMap.values()));
           },
           header: true,
         });
@@ -84,9 +84,9 @@ export default function Home() {
 
     if (untestedWords.length === 0) return; // No more untested words
 
-		// Pick a random word from the untested words
-		const randomIndex = Math.floor(Math.random() * untestedWords.length);
-		const word = untestedWords[randomIndex];
+    // Pick a random word from the untested words
+    const randomIndex = Math.floor(Math.random() * untestedWords.length);
+    const word = untestedWords[randomIndex];
 
     setRandomWord(word);
     setTestedWords((prev) => [...prev, word]); // Increment the number of tested words

@@ -310,6 +310,13 @@ a:hover {
 /* ---------------- Global Mobile Responsiveness ---------------- */
 /* ---------------- SlideCreator Responsive ---------------- */
 @media (max-width: 1024px) {
+  html, body {
+    overflow-x: hidden;
+    width: 100vw; /* enforce viewport width */
+  }
+  * {
+    max-width: 100%; /* ensure no element exceeds viewport */
+  }
   /* Stack slide + word panel vertically on tablets */
   .slide-creator-content-row {
     flex-direction: column !important;

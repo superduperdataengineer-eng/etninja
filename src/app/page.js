@@ -150,7 +150,7 @@ export default function HomePage() {
             marginBottom: '2rem',
           }}
         >
-          <CharacterFBX />
+          {/* <CharacterFBX /> */}
         </div>
       </div>
       {/* Inline styles for this page */}
