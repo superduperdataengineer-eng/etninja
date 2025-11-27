@@ -1360,6 +1360,9 @@ import { OrbitControls } from '@react-three/drei';
 import React, { useEffect, useRef, useState, Suspense } from 'react';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 
+// ---------------------------------------------------
+// ANIMATION FILES (FBX)
+// ---------------------------------------------------
 const animations = {
   idle: '/character/Idle.fbx',
   walk: '/character/Walking.fbx',
@@ -1377,6 +1380,9 @@ const animations = {
   twist: 'character/TwistDancing.fbx'
 };
 
+// ---------------------------------------------------
+// MODEL COMPONENT
+// ---------------------------------------------------
 function FBXModel({ onReady, setLoading }) {
   const mixer = useRef(null);
   const currentAction = useRef(null);
@@ -1393,6 +1399,7 @@ function FBXModel({ onReady, setLoading }) {
 
       mixer.current = new THREE.AnimationMixer(model);
 
+      // Load idle first
       loader.load(animations.idle, (anim) => {
         const action = mixer.current.clipAction(anim.animations[0]);
         actions.current['idle'] = action;
@@ -1403,6 +1410,7 @@ function FBXModel({ onReady, setLoading }) {
         setLoading(false);
       });
 
+      // Load other animations
       Object.entries(animations).forEach(([name, file]) => {
         if (name === 'idle') return;
         loader.load(file, (anim) => {
@@ -1428,23 +1436,27 @@ function FBXModel({ onReady, setLoading }) {
   return <group ref={group} />;
 }
 
+// ---------------------------------------------------
+// MAIN EXPORT
+// ---------------------------------------------------
 export default function CharacterFBX() {
   const [play, setPlay] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const buttonStyle = {
-    padding: '16px 0',
-    margin: '4px',
+    padding: '20px 0px',
+    margin: '6px 0',
     borderRadius: '8px',
     background: '#007aff',
     border: 'none',
     color: 'white',
     fontWeight: 'bold',
     cursor: 'pointer',
+    width: '170px',
     fontSize: '14px',
-    textAlign: 'center',
-    flex: '1 0 80px',
-    minWidth: '70px'
+    whiteSpace: 'normal',
+    wordWrap: 'break-word',
+    textAlign: 'center'
   };
 
   const animKeys = Object.keys(animations);
@@ -1453,16 +1465,17 @@ export default function CharacterFBX() {
   const rightButtons = animKeys.slice(half);
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '-35px' }}>
+    <div className='hide-on-phone' 
+      style={{ display: 'flex', justifyContent: 'center', marginTop: '-35px' }}>
+      {/* GRID: left buttons / canvas / right buttons */}
       <div className="grid-container" style={{
         display: 'grid',
         gridTemplateColumns: '180px 400px 180px',
         gap: '20px',
-        alignItems: 'start',
-        marginTop: '-40px'
+        alignItems: 'start'
       }}>
         {/* LEFT BUTTONS */}
-        <div className="left-buttons" style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
           {leftButtons.map((name) => (
             <button key={name} style={buttonStyle} onClick={() => play && play(name)}>
               {name.replace(/_/g, ' ').toUpperCase()}
@@ -1514,7 +1527,7 @@ export default function CharacterFBX() {
         </div>
 
         {/* RIGHT BUTTONS */}
-        <div className="right-buttons" style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
           {rightButtons.map((name) => (
             <button key={name} style={buttonStyle} onClick={() => play && play(name)}>
               {name.replace(/_/g, ' ').toUpperCase()}
@@ -1530,45 +1543,49 @@ export default function CharacterFBX() {
             grid-template-columns: 140px 320px 140px !important;
             gap: 15px !important;
           }
-          .canvas-container { width: 320px !important; height: 400px !important; }
-          button { font-size: 13px !important; }
+          .canvas-container {
+            width: 320px !important;
+            height: 400px !important;
+          }
+          button {
+            font-size: 13px !important;
+            width: 130px !important;
+            padding: 16px 0 !important;
+          }
         }
-
         @media (max-width: 768px) {
           .grid-container {
             grid-template-columns: 120px 240px 120px !important;
             gap: 10px !important;
           }
-          .canvas-container { width: 240px !important; height: 300px !important; }
-          button { font-size: 12px !important; }
-        }
-
-        @media (max-width: 480px) {
-          .grid-container {
-            grid-template-columns: 1fr !important;
-            gap: 12px !important;
-          }
-
           .canvas-container {
-            width: 95vw !important;
-            height: 65vw !important;
-            max-width: 280px;
-            max-height: 300px;
+            width: 240px !important;
+            height: 300px !important;
           }
-
-          .left-buttons, .right-buttons {
-            flex-direction: row !important;
-            flex-wrap: wrap !important;
-            justify-content: center !important;
-            margin: 0 auto;
-          }
-
           button {
             font-size: 12px !important;
-            flex: 1 0 90px !important;
-            margin: 4px !important;
+            width: 110px !important;
             padding: 12px 0 !important;
-            min-width: 80px;
+          }
+        }
+        @media (max-width: 480px) {
+        
+          .hide-on-phone{
+            display:none !important;
+          }
+
+          .grid-container {
+            grid-template-columns: 100px 180px 100px !important;
+            gap: 8px !important;
+          }
+          .canvas-container {
+            width: 180px !important;
+            height: 225px !important;
+          }
+          button {
+            font-size: 11px !important;
+            width: 90px !important;
+            padding: 10px 0 !important;
           }
         }
       `}</style>
