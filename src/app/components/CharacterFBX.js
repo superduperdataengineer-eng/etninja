@@ -1360,9 +1360,6 @@ import { OrbitControls } from '@react-three/drei';
 import React, { useEffect, useRef, useState, Suspense } from 'react';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 
-// ---------------------------------------------------
-// ANIMATION FILES (FBX)
-// ---------------------------------------------------
 const animations = {
   idle: '/character/Idle.fbx',
   walk: '/character/Walking.fbx',
@@ -1380,9 +1377,6 @@ const animations = {
   twist: 'character/TwistDancing.fbx'
 };
 
-// ---------------------------------------------------
-// MODEL COMPONENT
-// ---------------------------------------------------
 function FBXModel({ onReady, setLoading }) {
   const mixer = useRef(null);
   const currentAction = useRef(null);
@@ -1434,27 +1428,23 @@ function FBXModel({ onReady, setLoading }) {
   return <group ref={group} />;
 }
 
-// ---------------------------------------------------
-// MAIN EXPORT
-// ---------------------------------------------------
 export default function CharacterFBX() {
   const [play, setPlay] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const buttonStyle = {
     padding: '16px 0',
-    margin: '4px 0',
+    margin: '4px',
     borderRadius: '8px',
     background: '#007aff',
     border: 'none',
     color: 'white',
     fontWeight: 'bold',
     cursor: 'pointer',
-    width: '160px',
     fontSize: '14px',
-    whiteSpace: 'normal',
-    wordWrap: 'break-word',
-    textAlign: 'center'
+    textAlign: 'center',
+    flex: '1 0 80px',
+    minWidth: '70px'
   };
 
   const animKeys = Object.keys(animations);
@@ -1468,7 +1458,8 @@ export default function CharacterFBX() {
         display: 'grid',
         gridTemplateColumns: '180px 400px 180px',
         gap: '20px',
-        alignItems: 'start'
+        alignItems: 'start',
+        marginTop: '-40px'
       }}>
         {/* LEFT BUTTONS */}
         <div className="left-buttons" style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
@@ -1539,53 +1530,45 @@ export default function CharacterFBX() {
             grid-template-columns: 140px 320px 140px !important;
             gap: 15px !important;
           }
-          .canvas-container {
-            width: 320px !important;
-            height: 400px !important;
-          }
-          button {
-            font-size: 13px !important;
-            width: 130px !important;
-            padding: 14px 0 !important;
-          }
+          .canvas-container { width: 320px !important; height: 400px !important; }
+          button { font-size: 13px !important; }
         }
+
         @media (max-width: 768px) {
           .grid-container {
             grid-template-columns: 120px 240px 120px !important;
             gap: 10px !important;
           }
-          .canvas-container {
-            width: 240px !important;
-            height: 300px !important;
-          }
-          button {
-            font-size: 12px !important;
-            width: 110px !important;
-            padding: 12px 0 !important;
-          }
+          .canvas-container { width: 240px !important; height: 300px !important; }
+          button { font-size: 12px !important; }
         }
-        /* PHONES: STACK EVERYTHING */
+
         @media (max-width: 480px) {
           .grid-container {
             grid-template-columns: 1fr !important;
-            gap: 10px !important;
+            gap: 12px !important;
           }
+
           .canvas-container {
-            width: 90vw !important;
-            height: 60vw !important;
-            max-width: 200px;
-            max-height: 220px;
+            width: 95vw !important;
+            height: 65vw !important;
+            max-width: 280px;
+            max-height: 300px;
           }
+
           .left-buttons, .right-buttons {
             flex-direction: row !important;
             flex-wrap: wrap !important;
             justify-content: center !important;
+            margin: 0 auto;
           }
+
           button {
-            font-size: 11px !important;
-            width: 80px !important;
+            font-size: 12px !important;
+            flex: 1 0 90px !important;
             margin: 4px !important;
-            padding: 10px 0 !important;
+            padding: 12px 0 !important;
+            min-width: 80px;
           }
         }
       `}</style>
