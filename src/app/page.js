@@ -5,7 +5,11 @@ import { adList } from './components/adList';
 import { blogList } from './components/blogList';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import CharacterFBX from './components/CharacterFBX';
+// import CharacterFBX from './components/CharacterFBX';
+import dynamic from 'next/dynamic';
+
+// Dynamically import with ssr: false
+const CharacterFBX = dynamic(() => import('./components/CharacterFBX'), { ssr: false });
 
 export default function HomePage() {
   const [scrollX, setScrollX] = useState(0);
@@ -150,7 +154,7 @@ export default function HomePage() {
             marginBottom: '2rem',
           }}
         >
-          {/* <CharacterFBX /> */}
+          <CharacterFBX />
         </div>
       </div>
       {/* Inline styles for this page */}
