@@ -1260,7 +1260,7 @@ export default function CharacterFBX() {
       style={{
         display: 'flex',
         justifyContent: 'center', // center horizontally
-        marginTop: '20px'
+        marginTop: '-35px'
       }}
     >
       {/* GRID: left buttons / canvas / right buttons */}
