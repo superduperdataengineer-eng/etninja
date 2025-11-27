@@ -1399,7 +1399,6 @@ function FBXModel({ onReady, setLoading }) {
 
       mixer.current = new THREE.AnimationMixer(model);
 
-      // Load idle first
       loader.load(animations.idle, (anim) => {
         const action = mixer.current.clipAction(anim.animations[0]);
         actions.current['idle'] = action;
@@ -1410,7 +1409,6 @@ function FBXModel({ onReady, setLoading }) {
         setLoading(false);
       });
 
-      // Load other animations
       Object.entries(animations).forEach(([name, file]) => {
         if (name === 'idle') return;
         loader.load(file, (anim) => {
@@ -1444,15 +1442,15 @@ export default function CharacterFBX() {
   const [loading, setLoading] = useState(true);
 
   const buttonStyle = {
-    padding: '20px 0px',
-    margin: '6px 0',
+    padding: '16px 0',
+    margin: '4px 0',
     borderRadius: '8px',
     background: '#007aff',
     border: 'none',
     color: 'white',
     fontWeight: 'bold',
     cursor: 'pointer',
-    width: '170px',
+    width: '160px',
     fontSize: '14px',
     whiteSpace: 'normal',
     wordWrap: 'break-word',
@@ -1466,7 +1464,6 @@ export default function CharacterFBX() {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', marginTop: '-35px' }}>
-      {/* GRID: left buttons / canvas / right buttons */}
       <div className="grid-container" style={{
         display: 'grid',
         gridTemplateColumns: '180px 400px 180px',
@@ -1474,7 +1471,7 @@ export default function CharacterFBX() {
         alignItems: 'start'
       }}>
         {/* LEFT BUTTONS */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+        <div className="left-buttons" style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
           {leftButtons.map((name) => (
             <button key={name} style={buttonStyle} onClick={() => play && play(name)}>
               {name.replace(/_/g, ' ').toUpperCase()}
@@ -1526,7 +1523,7 @@ export default function CharacterFBX() {
         </div>
 
         {/* RIGHT BUTTONS */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+        <div className="right-buttons" style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
           {rightButtons.map((name) => (
             <button key={name} style={buttonStyle} onClick={() => play && play(name)}>
               {name.replace(/_/g, ' ').toUpperCase()}
@@ -1549,7 +1546,7 @@ export default function CharacterFBX() {
           button {
             font-size: 13px !important;
             width: 130px !important;
-            padding: 16px 0 !important;
+            padding: 14px 0 !important;
           }
         }
         @media (max-width: 768px) {
@@ -1567,18 +1564,27 @@ export default function CharacterFBX() {
             padding: 12px 0 !important;
           }
         }
+        /* PHONES: STACK EVERYTHING */
         @media (max-width: 480px) {
           .grid-container {
-            grid-template-columns: 100px 180px 100px !important;
-            gap: 8px !important;
+            grid-template-columns: 1fr !important;
+            gap: 10px !important;
           }
           .canvas-container {
-            width: 180px !important;
-            height: 225px !important;
+            width: 90vw !important;
+            height: 60vw !important;
+            max-width: 200px;
+            max-height: 220px;
+          }
+          .left-buttons, .right-buttons {
+            flex-direction: row !important;
+            flex-wrap: wrap !important;
+            justify-content: center !important;
           }
           button {
             font-size: 11px !important;
-            width: 90px !important;
+            width: 80px !important;
+            margin: 4px !important;
             padding: 10px 0 !important;
           }
         }
