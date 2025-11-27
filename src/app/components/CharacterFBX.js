@@ -1351,7 +1351,259 @@
 //   );
 // }
 
-//code 8
+//code 8 works but buttons overlap footer, no keys.
+// 'use client';
+
+// import * as THREE from 'three';
+// import { Canvas, useFrame } from '@react-three/fiber';
+// import { OrbitControls } from '@react-three/drei';
+// import React, { useEffect, useRef, useState, Suspense } from 'react';
+// import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
+
+// // ---------------------------------------------------
+// // ANIMATION FILES (FBX)
+// // ---------------------------------------------------
+// const animations = {
+//   idle: '/character/Idle.fbx',
+//   walk: '/character/Walking.fbx',
+//   run: '/character/Running.fbx',
+//   stretch: '/character/ArmStretching.fbx',
+//   capoeira: '/character/Capoeira.fbx',
+//   kicking: '/character/Kicking.fbx',
+//   jump: '/character/Jumping.fbx',
+//   pull: '/character/PullingARope.fbx',
+//   push: '/character/Push.fbx',
+//   sit: '/character/Sit.fbx',
+//   pick_up_and_throw: '/character/Throw.fbx',
+//   tripping: '/character/Tripping.fbx',
+//   turn: '/character/Turn.fbx',
+//   twist: '/character/TwistDancing.fbx',
+//   turn_around: '/character/TurnAround.fbx',
+//   punching: '/character/Punching.fbx',
+//   hanging: '/character/Hanging.fbx',
+//   laying: '/character/Laying.fbx',
+//   mission_impossible: '/character/Falling.fbx',
+//   check_surroundings: '/character/checkSurroundings.fbx',
+//   play_golf: '/character/PlayGolf.fbx',
+//   land: '/character/Land.fbx',
+//   swimming: '/character/Swimming.fbx',
+//   cartwheel: '/character/Cartwheel.fbx'
+// };
+
+// // ---------------------------------------------------
+// // MODEL COMPONENT
+// // ---------------------------------------------------
+// function FBXModel({ onReady, setLoading }) {
+//   const mixer = useRef(null);
+//   const currentAction = useRef(null);
+//   const actions = useRef({});
+//   const group = useRef();
+
+//   useEffect(() => {
+//     const loader = new FBXLoader();
+
+//     loader.load('/character/riggedORIGINAL.fbx', (model) => {
+//       model.scale.set(0.022, 0.022, 0.022);
+//       model.position.y = -1.2;
+//       group.current.add(model);
+
+//       mixer.current = new THREE.AnimationMixer(model);
+
+//       // Load idle first
+//       loader.load(animations.idle, (anim) => {
+//         const action = mixer.current.clipAction(anim.animations[0]);
+//         actions.current['idle'] = action;
+//         currentAction.current = action;
+//         action.play();
+
+//         onReady((name) => playAnimation(name));
+//         setLoading(false);
+//       });
+
+//       // Load other animations
+//       Object.entries(animations).forEach(([name, file]) => {
+//         if (name === 'idle') return;
+//         loader.load(file, (anim) => {
+//           const action = mixer.current.clipAction(anim.animations[0]);
+//           actions.current[name] = action;
+//         });
+//       });
+//     });
+
+//     const playAnimation = (name) => {
+//       if (!actions.current[name]) return;
+//       if (currentAction.current) currentAction.current.fadeOut(0.2);
+//       const action = actions.current[name];
+//       currentAction.current = action;
+//       action.reset().fadeIn(0.2).play();
+//     };
+//   }, []);
+
+//   useFrame((_, delta) => {
+//     if (mixer.current) mixer.current.update(delta);
+//   });
+
+//   return <group ref={group} />;
+// }
+
+// // ---------------------------------------------------
+// // MAIN EXPORT
+// // ---------------------------------------------------
+// export default function CharacterFBX() {
+//   const [play, setPlay] = useState(null);
+//   const [loading, setLoading] = useState(true);
+
+//   const buttonStyle = {
+//     padding: '20px 0px',
+//     margin: '6px 0',
+//     borderRadius: '8px',
+//     background: '#007aff',
+//     border: 'none',
+//     color: 'white',
+//     fontWeight: 'bold',
+//     cursor: 'pointer',
+//     width: '170px',
+//     fontSize: '14px',
+//     whiteSpace: 'normal',
+//     wordWrap: 'break-word',
+//     textAlign: 'center'
+//   };
+
+//   const animKeys = Object.keys(animations);
+//   const half = Math.ceil(animKeys.length / 2);
+//   const leftButtons = animKeys.slice(0, half);
+//   const rightButtons = animKeys.slice(half);
+
+//   return (
+//     <div className='hide-on-phone' 
+//       style={{ display: 'flex', justifyContent: 'center', marginTop: '-35px' }}>
+//       {/* GRID: left buttons / canvas / right buttons */}
+//       <div className="grid-container" style={{
+//         display: 'grid',
+//         gridTemplateColumns: '180px 400px 180px',
+//         gap: '20px',
+//         alignItems: 'start'
+//       }}>
+//         {/* LEFT BUTTONS */}
+//         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+//           {leftButtons.map((name) => (
+//             <button key={name} style={buttonStyle} onClick={() => play && play(name)}>
+//               {name.replace(/_/g, ' ').toUpperCase()}
+//             </button>
+//           ))}
+//         </div>
+
+//         {/* CANVAS */}
+//         <div className="canvas-container" style={{
+//           width: '400px',
+//           height: '500px',
+//           borderRadius: '12px',
+//           overflow: 'hidden',
+//           position: 'relative',
+//           background: '#e0e0e0'
+//         }}>
+//           {loading && (
+//             <div className="loader" style={{
+//               position: 'absolute',
+//               top: '50%',
+//               left: '50%',
+//               transform: 'translate(-50%, -50%)',
+//               width: '180px',
+//               height: '180px',
+//               border: '8px solid #ccc',
+//               borderTop: '8px solid #007aff',
+//               borderRadius: '50%',
+//               animation: 'spin 1s linear infinite',
+//               zIndex: 10
+//             }} />
+//           )}
+
+//           <Canvas style={{ width: '100%', height: '100%' }} camera={{ position: [0, 1.5, 4], fov: 40 }}>
+//             <ambientLight intensity={0.4} />
+//             <directionalLight position={[5, 3, 5]} intensity={4.4} />
+//             <directionalLight position={[-5, 3, 5]} intensity={4.4} />
+//             <Suspense fallback={null}>
+//               <FBXModel onReady={(fn) => setPlay(() => fn)} setLoading={setLoading} />
+//             </Suspense>
+//             <OrbitControls enablePan={false} />
+//           </Canvas>
+
+//           <style>{`
+//             @keyframes spin {
+//               0% { transform: translate(-50%, -50%) rotate(0deg); }
+//               100% { transform: translate(-50%, -50%) rotate(360deg); }
+//             }
+//           `}</style>
+//         </div>
+
+//         {/* RIGHT BUTTONS */}
+//         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+//           {rightButtons.map((name) => (
+//             <button key={name} style={buttonStyle} onClick={() => play && play(name)}>
+//               {name.replace(/_/g, ' ').toUpperCase()}
+//             </button>
+//           ))}
+//         </div>
+//       </div>
+
+//       {/* RESPONSIVE MEDIA QUERIES */}
+//       <style jsx>{`
+//         @media (max-width: 1024px) {
+//           .grid-container {
+//             grid-template-columns: 140px 320px 140px !important;
+//             gap: 15px !important;
+//           }
+//           .canvas-container {
+//             width: 320px !important;
+//             height: 400px !important;
+//           }
+//           button {
+//             font-size: 13px !important;
+//             width: 130px !important;
+//             padding: 16px 0 !important;
+//           }
+//         }
+//         @media (max-width: 768px) {
+//           .grid-container {
+//             grid-template-columns: 120px 240px 120px !important;
+//             gap: 10px !important;
+//           }
+//           .canvas-container {
+//             width: 240px !important;
+//             height: 300px !important;
+//           }
+//           button {
+//             font-size: 12px !important;
+//             width: 110px !important;
+//             padding: 12px 0 !important;
+//           }
+//         }
+//         @media (max-width: 480px) {
+        
+//           .hide-on-phone{
+//             display:none !important;
+//           }
+
+//           .grid-container {
+//             grid-template-columns: 100px 180px 100px !important;
+//             gap: 8px !important;
+//           }
+//           .canvas-container {
+//             width: 180px !important;
+//             height: 225px !important;
+//           }
+//           button {
+//             font-size: 11px !important;
+//             width: 90px !important;
+//             padding: 10px 0 !important;
+//           }
+//         }
+//       `}</style>
+//     </div>
+//   );
+// }
+
+//code 9
 'use client';
 
 import * as THREE from 'three';
@@ -1376,8 +1628,18 @@ const animations = {
   sit: '/character/Sit.fbx',
   pick_up_and_throw: '/character/Throw.fbx',
   tripping: '/character/Tripping.fbx',
-  turn: '/character/TurnAround.fbx',
-  twist: 'character/TwistDancing.fbx'
+  turn: '/character/Turn.fbx',
+  twist: '/character/TwistDancing.fbx',
+  turn_around: '/character/TurnAround.fbx',
+  punching: '/character/Punching.fbx',
+  hanging: '/character/Hanging.fbx',
+  laying: '/character/Laying.fbx',
+  mission_impossible: '/character/Falling.fbx',
+  check_surroundings: '/character/checkSurroundings.fbx',
+  play_golf: '/character/PlayGolf.fbx',
+  land: '/character/Land.fbx',
+  swimming: '/character/Swimming.fbx',
+  cartwheel: '/character/Cartwheel.fbx'
 };
 
 // ---------------------------------------------------
@@ -1399,7 +1661,6 @@ function FBXModel({ onReady, setLoading }) {
 
       mixer.current = new THREE.AnimationMixer(model);
 
-      // Load idle first
       loader.load(animations.idle, (anim) => {
         const action = mixer.current.clipAction(anim.animations[0]);
         actions.current['idle'] = action;
@@ -1410,7 +1671,6 @@ function FBXModel({ onReady, setLoading }) {
         setLoading(false);
       });
 
-      // Load other animations
       Object.entries(animations).forEach(([name, file]) => {
         if (name === 'idle') return;
         loader.load(file, (anim) => {
@@ -1443,6 +1703,26 @@ export default function CharacterFBX() {
   const [play, setPlay] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const animKeys = Object.keys(animations);
+
+  // Split buttons into four columns: leftExtra / left / right / rightExtra
+  const quarter = Math.ceil(animKeys.length / 4);
+  const leftExtraButtons = animKeys.slice(0, quarter);
+  const leftButtons = animKeys.slice(quarter, 2 * quarter);
+  const rightButtons = animKeys.slice(2 * quarter, 3 * quarter);
+  const rightExtraButtons = animKeys.slice(3 * quarter);
+
+  const placeholderKeys = animKeys.map((_, i) => String.fromCharCode(65 + i % 26));
+
+  useEffect(() => {
+    const handleKey = (e) => {
+      const index = placeholderKeys.findIndex(k => k.toLowerCase() === e.key.toLowerCase());
+      if (index !== -1 && play) play(animKeys[index]);
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, [play]);
+
   const buttonStyle = {
     padding: '20px 0px',
     margin: '6px 0',
@@ -1452,33 +1732,51 @@ export default function CharacterFBX() {
     color: 'white',
     fontWeight: 'bold',
     cursor: 'pointer',
-    width: '170px',
+    width: '150px',
     fontSize: '14px',
     whiteSpace: 'normal',
     wordWrap: 'break-word',
     textAlign: 'center'
   };
 
-  const animKeys = Object.keys(animations);
-  const half = Math.ceil(animKeys.length / 2);
-  const leftButtons = animKeys.slice(0, half);
-  const rightButtons = animKeys.slice(half);
-
   return (
-    <div className='hide-on-phone' 
-      style={{ display: 'flex', justifyContent: 'center', marginTop: '-35px' }}>
-      {/* GRID: left buttons / canvas / right buttons */}
+    <div className='hide-on-phone' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '-70px' }}>
+
+      {/* KEY DISPLAY ABOVE CANVAS */}
+      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '6px', marginBottom: '12px' }}>
+        {placeholderKeys.map((key, i) => (
+          <div key={i} style={{
+            padding: '4px 6px',
+            border: '1px solid #007aff',
+            borderRadius: '4px',
+            fontWeight: 'bold',
+            color: '#007aff'
+          }}>{key}</div>
+        ))}
+      </div>
+
+      {/* GRID: Extra Left / Left / Canvas / Right / Extra Right */}
       <div className="grid-container" style={{
         display: 'grid',
-        gridTemplateColumns: '180px 400px 180px',
-        gap: '20px',
+        gridTemplateColumns: '150px 150px 400px 150px 150px',
+        gap: '15px',
         alignItems: 'start'
       }}>
+
+        {/* LEFT EXTRA BUTTONS */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          {leftExtraButtons.map((name, i) => (
+            <button key={name} style={buttonStyle} onClick={() => play && play(name)}>
+              {name.replace(/_/g, ' ').toUpperCase()} ({placeholderKeys[i]})
+            </button>
+          ))}
+        </div>
+
         {/* LEFT BUTTONS */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-          {leftButtons.map((name) => (
+          {leftButtons.map((name, i) => (
             <button key={name} style={buttonStyle} onClick={() => play && play(name)}>
-              {name.replace(/_/g, ' ').toUpperCase()}
+              {name.replace(/_/g, ' ').toUpperCase()} ({placeholderKeys[i + leftExtraButtons.length]})
             </button>
           ))}
         </div>
@@ -1528,67 +1826,23 @@ export default function CharacterFBX() {
 
         {/* RIGHT BUTTONS */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-          {rightButtons.map((name) => (
+          {rightButtons.map((name, i) => (
             <button key={name} style={buttonStyle} onClick={() => play && play(name)}>
-              {name.replace(/_/g, ' ').toUpperCase()}
+              {name.replace(/_/g, ' ').toUpperCase()} ({placeholderKeys[i + leftExtraButtons.length + leftButtons.length]})
             </button>
           ))}
         </div>
+
+        {/* RIGHT EXTRA BUTTONS */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          {rightExtraButtons.map((name, i) => (
+            <button key={name} style={buttonStyle} onClick={() => play && play(name)}>
+              {name.replace(/_/g, ' ').toUpperCase()} ({placeholderKeys[i + leftExtraButtons.length + leftButtons.length + rightButtons.length]})
+            </button>
+          ))}
+        </div>
+
       </div>
-
-      {/* RESPONSIVE MEDIA QUERIES */}
-      <style jsx>{`
-        @media (max-width: 1024px) {
-          .grid-container {
-            grid-template-columns: 140px 320px 140px !important;
-            gap: 15px !important;
-          }
-          .canvas-container {
-            width: 320px !important;
-            height: 400px !important;
-          }
-          button {
-            font-size: 13px !important;
-            width: 130px !important;
-            padding: 16px 0 !important;
-          }
-        }
-        @media (max-width: 768px) {
-          .grid-container {
-            grid-template-columns: 120px 240px 120px !important;
-            gap: 10px !important;
-          }
-          .canvas-container {
-            width: 240px !important;
-            height: 300px !important;
-          }
-          button {
-            font-size: 12px !important;
-            width: 110px !important;
-            padding: 12px 0 !important;
-          }
-        }
-        @media (max-width: 480px) {
-        
-          .hide-on-phone{
-            display:none !important;
-          }
-
-          .grid-container {
-            grid-template-columns: 100px 180px 100px !important;
-            gap: 8px !important;
-          }
-          .canvas-container {
-            width: 180px !important;
-            height: 225px !important;
-          }
-          button {
-            font-size: 11px !important;
-            width: 90px !important;
-            padding: 10px 0 !important;
-          }
-        }
-      `}</style>
     </div>
   );
 }
