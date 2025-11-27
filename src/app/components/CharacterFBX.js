@@ -1629,7 +1629,7 @@ const animations = {
   pick_up_and_throw: '/character/Throw.fbx',
   tripping: '/character/Tripping.fbx',
   turn: '/character/Turn.fbx',
-  twist: '/character/TwistDancing.fbx',
+  dance: '/character/TwistDancing.fbx',
   turn_around: '/character/TurnAround.fbx',
   punching: '/character/Punching.fbx',
   hanging: '/character/Hanging.fbx',
