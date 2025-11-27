@@ -1627,7 +1627,7 @@ const animations = {
   push: '/character/Push.fbx',
   sit: '/character/Sit.fbx',
   pick_up_and_throw: '/character/Throw.fbx',
-  tripping: '/character/Tripping.fbx',
+  trip_and_fall: '/character/Tripping.fbx',
   turn: '/character/Turn.fbx',
   dance: '/character/TwistDancing.fbx',
   turn_around: '/character/TurnAround.fbx',
