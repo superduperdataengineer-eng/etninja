@@ -1633,7 +1633,7 @@ const animations = {
   turn_around: '/character/TurnAround.fbx',
   punching: '/character/Punching.fbx',
   hanging: '/character/Hanging.fbx',
-  laying: '/character/Laying.fbx',
+  lying: '/character/Laying.fbx',
   mission_impossible: '/character/Falling.fbx',
   check_surroundings: '/character/checkSurroundings.fbx',
   play_golf: '/character/PlayGolf.fbx',
