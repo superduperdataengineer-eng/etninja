@@ -208,7 +208,7 @@
 //   );
 // }
 
-//code 5 hides 3d on phone
+//code 5 hides 3d on phone but wraps the fifth blog
 // 'use client';
 
 // import { adList } from './components/adList';
@@ -428,7 +428,7 @@
 //   );
 // }
 
-//code 6 works great but not for tablets
+//code 6
 'use client';
 
 import { adList } from './components/adList';
@@ -443,7 +443,6 @@ const CharacterFBX = dynamic(() => import('./components/CharacterFBX'), { ssr: f
 export default function HomePage() {
   const [scrollX, setScrollX] = useState(0);
   const [direction, setDirection] = useState(-1); // -1 = left, 1 = right
-  const [isDesktop, setIsDesktop] = useState(true); // for showing 3D only on tablets/desktops
 
   // Scroll banner effect
   useEffect(() => {
@@ -462,14 +461,6 @@ export default function HomePage() {
 
     return () => clearInterval(interval);
   }, [direction]);
-
-  // Detect screen width for 3D viewer
-  useEffect(() => {
-    const checkWidth = () => setIsDesktop(window.innerWidth > 765);
-    checkWidth();
-    window.addEventListener('resize', checkWidth);
-    return () => window.removeEventListener('resize', checkWidth);
-  }, []);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
@@ -525,21 +516,22 @@ export default function HomePage() {
       <main
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(5, 1fr)', // exactly 5 boxes per row
+          gridTemplateColumns: 'repeat(5, 1fr)', // desktop default
           gap: '1rem',
           justifyItems: 'center',
-          maxWidth: '1000px', // adjusted for 5 boxes
+          maxWidth: '1000px',
           width: '100%',
           margin: '0 auto',
-          paddingBottom: '2rem',
+          paddingBottom: '4rem',
         }}
       >
         {blogList.map((blog) => (
           <div
             key={blog.id}
             style={{
-              width: '120px',
-              height: '120px',
+              width: '100%',
+              maxWidth: '160px',
+              height: '140px',
               backgroundColor: 'rgba(255, 223, 0, 0.6)',
               borderRadius: '8px',
               display: 'flex',
@@ -582,15 +574,23 @@ export default function HomePage() {
       </main>
 
       {/* 3D Character Viewer */}
-      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem', marginBottom: '2rem' }}>
-        <div style={{ width: '100%', maxWidth: '400px', height: '400px', marginTop: '2rem', marginBottom: '2rem' }}>
-          {isDesktop ? (
-            <CharacterFBX />
-          ) : (
-            <div style={{ textAlign: 'center', padding: '40px', fontSize: '16px', color: '#555' }}>
-              Sorry, this 3D viewer is only available on tablets and desktop.
-            </div>
-          )}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          marginTop: '2rem',
+          marginBottom: '2rem',
+          width: '100%',
+        }}
+      >
+        <div
+          style={{
+            width: '100%',
+            maxWidth: '400px',
+            aspectRatio: '1 / 1', // keeps square container
+          }}
+        >
+          <CharacterFBX />
         </div>
       </div>
 
@@ -618,7 +618,11 @@ export default function HomePage() {
           margin-top: 10px;
         }
 
+        /* Responsive Blogs Grid */
         @media (max-width: 768px) {
+          main {
+            grid-template-columns: repeat(3, 1fr); /* tablet: 3 per row */
+          }
           .responsive-wrapper {
             padding: 5px;
           }
@@ -634,6 +638,9 @@ export default function HomePage() {
         }
 
         @media (max-width: 480px) {
+          main {
+            grid-template-columns: repeat(1, 1fr); /* phone: 1 per row */
+          }
           h1 {
             font-size: 1rem;
           }
@@ -647,4 +654,3 @@ export default function HomePage() {
     </div>
   );
 }
-

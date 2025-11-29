@@ -1742,7 +1742,7 @@ export default function CharacterFBX() {
   return (
     <div className='hide-on-phone' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '-70px' }}>
 
-      {/* KEY DISPLAY ABOVE CANVAS */}
+      {/* KEY DISPLAY ABOVE CANVAS
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '6px', marginBottom: '12px' }}>
         {placeholderKeys.map((key, i) => (
           <div key={i} style={{
@@ -1753,7 +1753,7 @@ export default function CharacterFBX() {
             color: '#007aff'
           }}>{key}</div>
         ))}
-      </div>
+      </div> */}
 
       {/* GRID: Extra Left / Left / Canvas / Right / Extra Right */}
       <div className="grid-container" style={{
