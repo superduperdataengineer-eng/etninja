@@ -175,37 +175,6 @@ export default function Page() {
         />
       </div>
 
-      {/* SECTION BUTTONS */}
-      <div
-        style={{
-          maxWidth: "900px",
-          width: "100%",
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
-          gap: "12px",
-          justifyItems: "center",
-          margin: "0 auto",
-        }}
-      >
-        {sections.map((section, i) => (
-          <button
-            key={i}
-            onClick={() => setSelectedIndex(i)}
-            style={{
-              padding: "12px",
-              borderRadius: "10px",
-              background: selectedIndex === i ? "#444" : "#222",
-              color: "white",
-              border: "1px solid #333",
-              cursor: "pointer",
-              width: "100%",
-            }}
-          >
-            Section {section.number}
-          </button>
-        ))}
-      </div>
-
       {/* SECTION TEXT */}
       <div
         style={{
@@ -241,16 +210,9 @@ export default function Page() {
             width: "100%",
             display: "flex",
             justifyContent: "center",
-            margin: "20px auto",
+            margin: "0px auto",
           }}
         >
-          {/* <audio controls style={{ width: "100%" }}>
-            <source
-              src={getAudioUrl(sections[selectedIndex].number)}
-              type="audio/mp4"
-            />
-            Your browser does not support the audio element.
-          </audio> */}
           <audio
             key={sections[selectedIndex].number} // <-- this forces reload
             controls
@@ -264,6 +226,37 @@ export default function Page() {
           </audio>
         </div>
       )}
+
+      {/* SECTION BUTTONS */}
+      <div
+        style={{
+          maxWidth: "900px",
+          width: "100%",
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
+          gap: "12px",
+          justifyItems: "center",
+          margin: "0 auto",
+        }}
+      >
+        {sections.map((section, i) => (
+          <button
+            key={i}
+            onClick={() => setSelectedIndex(i)}
+            style={{
+              padding: "12px",
+              borderRadius: "10px",
+              background: selectedIndex === i ? "#444" : "#222",
+              color: "white",
+              border: "1px solid #333",
+              cursor: "pointer",
+              width: "100%",
+            }}
+          >
+            Section {section.number}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

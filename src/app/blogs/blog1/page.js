@@ -2957,6 +2957,517 @@
 // }
 
 //code 9 FINAL VERSION
+// 'use client';
+
+// import React, { useState, useEffect } from "react";
+// import jsPDF from "jspdf";
+// import "../../globals.css";
+
+// export default function SlideCreator() {
+//   const [folderStructure, setFolderStructure] = useState([]);
+//   const [currentSlides, setCurrentSlides] = useState([]);
+//   const [currentIndex, setCurrentIndex] = useState(0);
+//   const [showFilename, setShowFilename] = useState(false);
+//   const [words, setWords] = useState([]);
+//   const [newWord, setNewWord] = useState("");
+
+//   const handleFolderSelect = (event) => {
+//     const files = Array.from(event.target.files).filter((file) =>
+//       file.type.startsWith("image/")
+//     );
+//     const folderStructure = buildFolderStructure(files);
+//     setFolderStructure(folderStructure);
+//     const allSlides = flattenSlides(folderStructure);
+//     setCurrentSlides(allSlides);
+//     setCurrentIndex(0);
+//   };
+
+//   const buildFolderStructure = (files) => {
+//     const folderMap = {};
+//     files.forEach((file) => {
+//       const path = file.webkitRelativePath.split("/");
+//       const level1 = path[0];
+//       const level2 = path[1];
+//       if (!folderMap[level1]) folderMap[level1] = {};
+//       if (!folderMap[level1][level2]) folderMap[level1][level2] = [];
+//       folderMap[level1][level2].push(file);
+//     });
+//     return Object.entries(folderMap).map(([level1Name, level2Folders]) => ({
+//       folderName: level1Name,
+//       subfolders: Object.entries(level2Folders)
+//         .map(([level2Name, files]) => ({
+//           subfolderName: level2Name,
+//           files: files.sort((a, b) => extractNumber(a.name) - extractNumber(b.name)),
+//         }))
+//         .sort((a, b) => extractNumber(a.subfolderName) - extractNumber(b.subfolderName)),
+//     }));
+//   };
+
+//   const extractNumber = (name) => {
+//     const match = name.match(/^(\d+)\./);
+//     return match ? parseInt(match[1], 10) : Number.MAX_SAFE_INTEGER;
+//   };
+
+//   const flattenSlides = (structure) => {
+//     const slides = [];
+//     structure.forEach((level1) => {
+//       level1.subfolders.forEach((level2) => {
+//         level2.files.forEach((file) => {
+//           slides.push({ level1: level1.folderName, level2: level2.subfolderName, file });
+//         });
+//       });
+//     });
+//     return slides;
+//   };
+
+//   const handleNextSlide = () => setCurrentIndex((prev) => (prev + 1) % currentSlides.length);
+//   const handlePrevSlide = () =>
+//     setCurrentIndex((prev) => (prev - 1 + currentSlides.length) % currentSlides.length);
+//   const handleToggleFilename = () => setShowFilename((prev) => !prev);
+
+// const handleExportToPDF = async () => {
+//   if (folderStructure.length === 0) return;
+//   const pdf = new jsPDF("p", "mm", "a4");
+//   const pageWidth = pdf.internal.pageSize.width;
+//   const pageHeight = pdf.internal.pageSize.height;
+//   const margin = 10;
+
+//   const slides = flattenSlides(folderStructure).map((s, index) => ({
+//     file: s.file,
+//     title: s.file.name.replace(/^\d+\.?\s*/, "").replace(/\.[^/.]+$/, ""),
+//     number: index + 1,
+//   }));
+
+//   // --- PAGE 1: PICTURE LIST ---
+//   pdf.setFontSize(20);
+//   pdf.text("PICTURE LIST", pageWidth / 2, 20, { align: "center" });
+
+//   const imgWidth = 55;
+//   const imgHeight = 40;
+//   const spacingX = 10;
+//   const spacingY = 25;
+//   let x = margin;
+//   let y = 30;
+
+//   for (let i = 0; i < slides.length; i++) {
+//     const slide = slides[i];
+//     const imgURL = URL.createObjectURL(slide.file);
+//     const img = new Image();
+//     img.src = imgURL;
+
+//     await new Promise((resolve) => {
+//       img.onload = () => {
+//         pdf.addImage(img, "JPEG", x, y, imgWidth, imgHeight);
+//         const title = `${slide.number}. ${slide.title}`;
+//         pdf.setFontSize(10);
+//         const textY = y + imgHeight + 5;
+//         const textX = x + imgWidth / 2;
+//         const splitText = pdf.splitTextToSize(title, imgWidth - 4);
+//         splitText.forEach((line, idx) => {
+//           pdf.text(line, textX, textY + idx * 4, { align: "center" });
+//         });
+//         URL.revokeObjectURL(imgURL);
+
+//         const rowHeight = imgHeight + spacingY + splitText.length * 4;
+//         if ((i + 1) % 3 === 0) {
+//           x = margin;
+//           y += rowHeight;
+//         } else {
+//           x += imgWidth + spacingX;
+//         }
+//         if (y + imgHeight + 40 > pageHeight) {
+//           pdf.addPage();
+//           y = margin;
+//           x = margin;
+//         }
+//         resolve();
+//       };
+//     });
+//   }
+
+//   // --- PAGE 2: FILL IN THE BLANKS (same order, numbered, with blank lines) ---
+// pdf.addPage();
+// pdf.setFontSize(20);
+// pdf.text("FILL IN THE BLANKS", pageWidth / 2, 20, { align: "center" });
+
+// x = margin;
+// y = 30;
+
+// for (let i = 0; i < slides.length; i++) {
+//   const slide = slides[i];
+//   const imgURL = URL.createObjectURL(slide.file);
+//   const img = new Image();
+//   img.src = imgURL;
+
+//   await new Promise((resolve) => {
+//     img.onload = () => {
+//       pdf.addImage(img, "JPEG", x, y, imgWidth, imgHeight);
+
+//       // centered short line with number
+//       const lineY = y + imgHeight + 6;
+//       const lineLength = imgWidth * 0.6;
+//       const lineX = x + (imgWidth - lineLength) / 2;
+//       pdf.setDrawColor(0);
+//       pdf.line(lineX, lineY, lineX + lineLength, lineY);
+
+//       // number label centered below the image
+//       pdf.setFontSize(10);
+//       pdf.text(`${slide.number}`, x + imgWidth / 2, lineY + 5, { align: "center" });
+
+//       URL.revokeObjectURL(imgURL);
+
+//       if ((i + 1) % 3 === 0) {
+//         x = margin;
+//         y += imgHeight + spacingY + 10;
+//       } else {
+//         x += imgWidth + spacingX;
+//       }
+
+//       if (y + imgHeight + 30 > pageHeight) {
+//         pdf.addPage();
+//         y = margin;
+//         x = margin;
+//       }
+//       resolve();
+//     };
+//   });
+// }
+
+//   // --- PAGE 3: ARE YOU READY TO JUMBLE? ---
+//   pdf.addPage();
+//   pdf.setFontSize(20);
+//   pdf.text("ARE YOU READY TO JUMBLE?", pageWidth / 2, 20, { align: "center" });
+
+//   const shuffledSlides = [...slides].sort(() => Math.random() - 0.5);
+//   x = margin;
+//   y = 30;
+
+//   for (let i = 0; i < shuffledSlides.length; i++) {
+//     const slide = shuffledSlides[i];
+//     const imgURL = URL.createObjectURL(slide.file);
+//     const img = new Image();
+//     img.src = imgURL;
+
+//     await new Promise((resolve) => {
+//       img.onload = () => {
+//         pdf.addImage(img, "JPEG", x, y, imgWidth, imgHeight);
+//         URL.revokeObjectURL(imgURL);
+
+//         const lineY = y + imgHeight + 8;
+//         pdf.setDrawColor(0);
+//         pdf.line(x + 5, lineY, x + imgWidth - 5, lineY);
+
+//         if ((i + 1) % 3 === 0) {
+//           x = margin;
+//           y += imgHeight + spacingY + 10;
+//         } else {
+//           x += imgWidth + spacingX;
+//         }
+//         if (y + imgHeight + 30 > pageHeight) {
+//           pdf.addPage();
+//           y = margin;
+//           x = margin;
+//         }
+//         resolve();
+//       };
+//     });
+//   }
+
+//   // --- PAGE 4: SUMMARY OF PICTURES ---
+//   pdf.addPage();
+//   pdf.setFontSize(20);
+//   pdf.text("SUMMARY OF PICTURES", pageWidth / 2, 20, { align: "center" });
+
+//   let tableY = 30;
+//   pdf.setFontSize(12);
+
+//   const colWidth = (pageWidth - 2 * margin) / 2 - 5; // small gap between columns
+//   const rowHeight = 10; // base height per line
+
+//   for (let i = 0; i < slides.length; i++) {
+//     const col = i % 2;
+//     const x = margin + col * (colWidth + 10); // add small horizontal spacing
+//     const slideTitle = `${i + 1}. ${slides[i].title}`;
+
+//     // wrap long text
+//     const splitTitle = pdf.splitTextToSize(slideTitle, colWidth - 5);
+//     const linesUsed = splitTitle.length;
+
+//     // print each line with spacing
+//     splitTitle.forEach((line, idx) => {
+//       pdf.text(line, x + colWidth / 2, tableY + idx * 5, { align: "center" });
+//     });
+
+//     // after both columns filled, move down
+//     if (col === 1 || i === slides.length - 1) {
+//       // find max vertical height used by wrapped lines
+//       const maxLines = Math.max(
+//         splitTitle.length,
+//         slides[i - 1] ? pdf.splitTextToSize(`${i}. ${slides[i - 1].title}`, colWidth - 5).length : 1
+//       );
+//       tableY += maxLines * 7 + 5; // 7 per line + extra padding
+//     }
+
+//     // page break if near bottom
+//     if (tableY + rowHeight > pageHeight - margin) {
+//       pdf.addPage();
+//       pdf.setFontSize(20);
+//       pdf.text("SUMMARY OF PICTURES (continued)", pageWidth / 2, 20, { align: "center" });
+//       tableY = 30;
+//       pdf.setFontSize(12);
+//     }
+//   }
+
+//   // --- PAGE 5: VOCABULARY LIST ---
+//   pdf.addPage();
+//   pdf.setFontSize(20);
+//   pdf.text("VOCABULARY LIST", pageWidth / 2, 20, { align: "center" });
+
+//   tableY = 30;
+//   pdf.setFontSize(12);
+
+//   const maxCols = 6;
+//   const usableWidth = pageWidth - 2 * margin;
+
+//   for (let i = 0; i < words.length; i++) {
+//     const remaining = words.length - i;
+//     const colsThisRow = Math.min(remaining, maxCols);
+//     const colWidth = usableWidth / colsThisRow;
+
+//     for (let col = 0; col < colsThisRow; col++) {
+//       const wordIndex = i + col;
+//       if (wordIndex >= words.length) break;
+
+//       const textX = margin + col * colWidth + colWidth / 2;
+//       pdf.text(`${words[wordIndex]}`, textX, tableY, { align: "center" });
+//     }
+
+//     tableY += rowHeight;
+//     i += colsThisRow - 1;
+
+//     if (tableY + rowHeight > pageHeight - margin) {
+//       pdf.addPage();
+//       pdf.setFontSize(20);
+//       pdf.text("VOCABULARY (continued)", pageWidth / 2, 20, { align: "center" });
+//       tableY = 30;
+//       pdf.setFontSize(12);
+//     }
+//   };
+
+//     pdf.save("slides.pdf");
+//   };
+
+
+
+//   const handleAddWord = () => {
+//     if (newWord.trim() !== "") {
+//       setWords([...words, newWord]);
+//       setNewWord("");
+//     }
+//   };
+
+//   const handleDeleteWord = (word) => setWords(words.filter((w) => w !== word));
+//   const handleDownloadWords = () => {
+//     const blob = new Blob([words.join("\n")], { type: "text/plain" });
+//     const link = document.createElement("a");
+//     link.href = URL.createObjectURL(blob);
+//     link.download = "words.txt";
+//     link.click();
+//   };
+
+//   const handleKeyDown = (e) => e.key === "Enter" && handleAddWord();
+
+//   useEffect(() => {
+//     const handleKeyDownEvent = (e) => {
+//       if (e.key === "ArrowRight") handleNextSlide();
+//       else if (e.key === "ArrowLeft") handlePrevSlide();
+//     };
+//     window.addEventListener("keydown", handleKeyDownEvent);
+//     return () => window.removeEventListener("keydown", handleKeyDownEvent);
+//   }, [currentSlides]);
+
+//   // --- Styles ---
+//   const buttonStyle = {
+//     padding: "8px 16px",
+//     margin: "4px",
+//     backgroundColor: "#b8860b",
+//     color: "white",
+//     border: "none",
+//     borderRadius: "8px",
+//     cursor: "pointer",
+//     fontWeight: "bold",
+//   };
+
+//   const topBarStyle = {
+//     display: "flex",
+//     alignItems: "center",
+//     justifyContent: "space-between",
+//     padding: "10px 20px",
+//     backgroundColor: "#fff8dc",
+//     borderBottom: "2px solid #b8860b",
+//     position: "sticky",
+//     top: 0,
+//     zIndex: 1000,
+//   };
+
+//   const leftBarGroup = { display: "flex", alignItems: "center", gap: "10px" };
+//   const rightBarGroup = { display: "flex", alignItems: "center", gap: "10px", marginLeft: "20px" };
+
+//   const mainContainer = {
+//     display: "flex",
+//     flexDirection: "column",
+//     alignItems: "center",
+//     padding: "20px",
+//     gap: "20px",
+//     minHeight: "calc(100vh - 60px)", // ensures footer stays at bottom
+//   };
+
+//   const contentRow = {
+//     display: "flex",
+//     justifyContent: "center",
+//     alignItems: "flex-start",
+//     gap: "20px",
+//     width: "90%",
+//     maxWidth: "1200px",
+//   };
+
+//   const slideStyle = {
+//     width: "400px",
+//     height: "300px",
+//     display: "flex",
+//     alignItems: "center",
+//     justifyContent: "center",
+//     border: "2px solid #b8860b",
+//     borderRadius: "10px",
+//     overflow: "hidden",
+//     cursor: "pointer",
+//     flexShrink: 0,
+//   };
+
+//   const wordPanelStyle = {
+//     flexGrow: 1,
+//     height: "300px",
+//     border: "2px solid #b8860b",
+//     borderRadius: "10px",
+//     padding: "10px",
+//     overflowY: "auto",
+//     display: "flex",
+//     flexWrap: "wrap",
+//     alignContent: "flex-start",
+//     gap: "10px",
+//     backgroundColor: "#fffbe6",
+//   };
+
+//   const wordChipStyle = {
+//     display: "flex",
+//     alignItems: "center",
+//     padding: "5px 10px",
+//     backgroundColor: "#f0e68c",
+//     borderRadius: "6px",
+//     cursor: "pointer",
+//     transition: "background-color 0.2s ease",
+//   };
+
+//   return (
+//     <div className="slide-creator-wrapper" style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+//       {/* Top bar */}
+//       <div style={topBarStyle}>
+//         <div style={leftBarGroup}>
+//           <h2>Slide Creator</h2>
+//           <input
+//             type="file"
+//             webkitdirectory=""
+//             directory=""
+//             multiple
+//             onChange={handleFolderSelect}
+//           />
+//         </div>
+
+//         {/* Show these only after selecting slides */}
+//         {currentSlides.length > 0 && (
+//           <div style={rightBarGroup}>
+//             <input
+//               type="text"
+//               value={newWord}
+//               onChange={(e) => setNewWord(e.target.value)}
+//               onKeyDown={handleKeyDown}
+//               placeholder="Type a word"
+//             />
+//             <button style={buttonStyle} onClick={handleAddWord}>
+//               Add Word
+//             </button>
+//             <button style={buttonStyle} onClick={handleExportToPDF}>
+//               Export to PDF
+//             </button>
+//             <button style={buttonStyle} onClick={handleDownloadWords}>
+//               Download Words
+//             </button>
+//           </div>
+//         )}
+//       </div>
+
+//       {/* Main content */}
+//       <div style={mainContainer}>
+//         {currentSlides.length > 0 && (
+//           <>
+//             <div style={contentRow} className="slide-creator-content-row">
+//               {/* Left: Slide */}
+//               <div style={slideStyle} className="slide-creator-slide" onClick={handleToggleFilename}>
+//                 {showFilename ? (
+//                   <p>{currentSlides[currentIndex].file.name.replace(/\.[^/.]+$/, "")}</p>
+//                 ) : (
+//                   <img
+//                     src={URL.createObjectURL(currentSlides[currentIndex].file)}
+//                     alt="Slide"
+//                     style={{ maxWidth: "100%", maxHeight: "100%" }}
+//                   />
+//                 )}
+//               </div>
+
+//               {/* Right: Word panel */}
+//               <div style={wordPanelStyle} className="slide-creator-word-panel">
+//                 {words.map((word, index) => (
+//                   <div
+//                     key={index}
+//                     style={wordChipStyle}
+//                     onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#ffd700")}
+//                     onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#f0e68c")}
+//                   >
+//                     <span>{word}</span>
+//                     <button
+//                       onClick={() => handleDeleteWord(word)}
+//                       style={{
+//                         marginLeft: "8px",
+//                         cursor: "pointer",
+//                         fontWeight: "bold",
+//                         border: "none",
+//                         background: "none",
+//                         color: "#b22222",
+//                       }}
+//                     >
+//                       ✕
+//                     </button>
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+
+//             <div className="slide-creator-buttons-row">
+//               <button style={buttonStyle} onClick={handlePrevSlide}>
+//                 Previous
+//               </button>
+//               <button style={buttonStyle} onClick={handleNextSlide}>
+//                 Next
+//               </button>
+//             </div>
+//           </>
+//         )}
+//       </div>
+//     </div>
+//   );
+// }
+
+//CODE 10
 'use client';
 
 import React, { useState, useEffect } from "react";
@@ -3173,48 +3684,28 @@ for (let i = 0; i < slides.length; i++) {
     });
   }
 
-  // --- PAGE 4: SUMMARY OF PICTURES ---
+ // --- PAGE 4: SUMMARY OF PICTURES (SINGLE COLUMN) ---
   pdf.addPage();
   pdf.setFontSize(20);
   pdf.text("SUMMARY OF PICTURES", pageWidth / 2, 20, { align: "center" });
-
-  let tableY = 30;
+  y = 30;
   pdf.setFontSize(12);
 
-  const colWidth = (pageWidth - 2 * margin) / 2 - 5; // small gap between columns
-  const rowHeight = 10; // base height per line
-
   for (let i = 0; i < slides.length; i++) {
-    const col = i % 2;
-    const x = margin + col * (colWidth + 10); // add small horizontal spacing
-    const slideTitle = `${i + 1}. ${slides[i].title}`;
+    const text = `${i + 1}. ${slides[i].title}`;
+    const splitText = pdf.splitTextToSize(text, pageWidth - 2 * margin);
 
-    // wrap long text
-    const splitTitle = pdf.splitTextToSize(slideTitle, colWidth - 5);
-    const linesUsed = splitTitle.length;
-
-    // print each line with spacing
-    splitTitle.forEach((line, idx) => {
-      pdf.text(line, x + colWidth / 2, tableY + idx * 5, { align: "center" });
+    splitText.forEach((line) => {
+      pdf.text(line, margin, y);
+      y += 7; // line spacing
     });
 
-    // after both columns filled, move down
-    if (col === 1 || i === slides.length - 1) {
-      // find max vertical height used by wrapped lines
-      const maxLines = Math.max(
-        splitTitle.length,
-        slides[i - 1] ? pdf.splitTextToSize(`${i}. ${slides[i - 1].title}`, colWidth - 5).length : 1
-      );
-      tableY += maxLines * 7 + 5; // 7 per line + extra padding
-    }
+    y += 3; // extra spacing between items
 
-    // page break if near bottom
-    if (tableY + rowHeight > pageHeight - margin) {
+    if (y > pageHeight - margin) {
       pdf.addPage();
-      pdf.setFontSize(20);
-      pdf.text("SUMMARY OF PICTURES (continued)", pageWidth / 2, 20, { align: "center" });
-      tableY = 30;
       pdf.setFontSize(12);
+      y = margin;
     }
   }
 
@@ -3222,40 +3713,29 @@ for (let i = 0; i < slides.length; i++) {
   pdf.addPage();
   pdf.setFontSize(20);
   pdf.text("VOCABULARY LIST", pageWidth / 2, 20, { align: "center" });
-
-  tableY = 30;
+  y = 30;
   pdf.setFontSize(12);
 
-  const maxCols = 6;
-  const usableWidth = pageWidth - 2 * margin;
-
   for (let i = 0; i < words.length; i++) {
-    const remaining = words.length - i;
-    const colsThisRow = Math.min(remaining, maxCols);
-    const colWidth = usableWidth / colsThisRow;
+    const text = `${i + 1}. ${words[i]}`;
+    const splitText = pdf.splitTextToSize(text, pageWidth - 2 * margin);
 
-    for (let col = 0; col < colsThisRow; col++) {
-      const wordIndex = i + col;
-      if (wordIndex >= words.length) break;
+    splitText.forEach((line) => {
+      pdf.text(line, margin, y);
+      y += 7; // line spacing
+    });
 
-      const textX = margin + col * colWidth + colWidth / 2;
-      pdf.text(`${words[wordIndex]}`, textX, tableY, { align: "center" });
-    }
+    y += 3; // extra spacing between items
 
-    tableY += rowHeight;
-    i += colsThisRow - 1;
-
-    if (tableY + rowHeight > pageHeight - margin) {
+    if (y > pageHeight - margin) {
       pdf.addPage();
-      pdf.setFontSize(20);
-      pdf.text("VOCABULARY (continued)", pageWidth / 2, 20, { align: "center" });
-      tableY = 30;
       pdf.setFontSize(12);
+      y = margin;
     }
-  };
+  }
 
-    pdf.save("slides.pdf");
-  };
+  pdf.save("slides.pdf");
+};
 
 
 
