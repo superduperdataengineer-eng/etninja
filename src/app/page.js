@@ -655,7 +655,7 @@
 //   );
 // }
 
-//code 7
+//code 7 works for computers not tablets or phones
 'use client';
 
 import { adList } from './components/adList';
@@ -866,3 +866,15 @@ export default function HomePage() {
     </div>
   );
 }
+
+//CODE 8
+// 'use client';
+
+// import dynamic from 'next/dynamic';
+
+// // Dynamically import the full homepage as a client component
+// const HomePageClient = dynamic(() => import('./HomePageClient'), { ssr: false });
+
+// export default function Page() {
+//   return <HomePageClient />;
+// }

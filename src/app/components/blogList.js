@@ -5,5 +5,5 @@ export const blogList = [
   { id: 3, title: 'TPR Toggle', href: '/blogs/blog3' },
   // { id: 4, title: 'Statistics Study', href: '/blogs/blog4' },
   { id: 5, title: 'Action Stories', href: '/blogs/blog5' },
-  { id: 6, title: 'The Kid', href:'/blogs/blog6' }
+  // { id: 6, title: 'The Kid', href:'/blogs/blog6' }
 ];
