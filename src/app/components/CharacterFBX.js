@@ -2086,6 +2086,247 @@
 // }
 
 //code 10.5
+// 'use client';
+
+// import * as THREE from 'three';
+// import { Canvas, useFrame } from '@react-three/fiber';
+// import { OrbitControls } from '@react-three/drei';
+// import React, { useEffect, useRef, useState, Suspense } from 'react';
+// import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
+
+// // ---------------------------------------------------
+// // ANIMATION FILES (FBX)
+// // ---------------------------------------------------t
+// const animations = {
+//   idle: '/character/Idle.fbx',
+//   walk: '/character/Walking.fbx',
+//   run: '/character/Running.fbx',
+//   stretch: '/character/ArmStretching.fbx',
+//   capoeira: '/character/Capoeira.fbx',
+//   kicking: '/character/Kicking.fbx',
+//   jump: '/character/Jumping.fbx',
+//   pull: '/character/PullingARope.fbx',
+//   push: '/character/Push.fbx',
+//   sit: '/character/Sit.fbx',
+//   pick_up_and_throw: '/character/Throw.fbx',
+//   trip_and_fall: '/character/Tripping.fbx',
+//   turn: '/character/Turn.fbx',
+//   dance: '/character/TwistDancing.fbx',
+//   turn_around: '/character/TurnAround.fbx',
+//   punching: '/character/Punching.fbx',
+//   hanging: '/character/Hanging.fbx',
+//   lying: '/character/Lying.fbx',
+//   mission_impossible: '/character/Falling.fbx',
+//   check_surroundings: '/character/checkSurroundings.fbx',
+//   play_golf: '/character/PlayGolf.fbx',
+//   land: '/character/Land.fbx',
+//   swimming: '/character/Swimming.fbx',
+//   cartwheel: '/character/Cartwheel.fbx'
+// };
+
+// // ---------------------------------------------------
+// // MODEL COMPONENT
+// // ---------------------------------------------------
+// function FBXModel({ onReady, setLoading }) {
+//   const mixer = useRef(null);
+//   const currentAction = useRef(null);
+//   const actions = useRef({});
+//   const group = useRef();
+
+//   useEffect(() => {
+//     const loader = new FBXLoader();
+
+//     loader.load('/character/riggedORIGINAL.fbx', (model) => {
+//       model.scale.set(0.022, 0.022, 0.022);
+//       model.position.y = -1.2;
+//       group.current.add(model);
+
+//       mixer.current = new THREE.AnimationMixer(model);
+
+//       loader.load(animations.idle, (anim) => {
+//         const action = mixer.current.clipAction(anim.animations[0]);
+//         actions.current['idle'] = action;
+//         currentAction.current = action;
+//         action.play();
+
+//         onReady((name) => playAnimation(name));
+//         setLoading(false);
+//       });
+
+//       Object.entries(animations).forEach(([name, file]) => {
+//         if (name === 'idle') return;
+//         loader.load(file, (anim) => {
+//           const action = mixer.current.clipAction(anim.animations[0]);
+//           actions.current[name] = action;
+//         });
+//       });
+//     });
+
+//     const playAnimation = (name) => {
+//       if (!actions.current[name]) return;
+//       if (currentAction.current) currentAction.current.fadeOut(0.2);
+//       const action = actions.current[name];
+//       currentAction.current = action;
+//       action.reset().fadeIn(0.2).play();
+//     };
+//   }, []);
+
+//   useFrame((_, delta) => {
+//     if (mixer.current) mixer.current.update(delta);
+//   });
+
+//   return <group ref={group} />;
+// }
+
+// // ---------------------------------------------------
+// // MAIN EXPORT
+// // ---------------------------------------------------
+// export default function CharacterFBX() {
+//   const [play, setPlay] = useState(null);
+//   const [loading, setLoading] = useState(true);
+//   const [isMobileOrTablet, setIsMobileOrTablet] = useState(false);
+
+//   const animKeys = Object.keys(animations);
+
+//   // Split buttons into four columns: leftExtra / left / right / rightExtra
+//   const quarter = Math.ceil(animKeys.length / 4);
+//   const leftExtraButtons = animKeys.slice(0, quarter);
+//   const leftButtons = animKeys.slice(quarter, 2 * quarter);
+//   const rightButtons = animKeys.slice(2 * quarter, 3 * quarter);
+//   const rightExtraButtons = animKeys.slice(3 * quarter);
+
+//   const placeholderKeys = animKeys.map((_, i) => String.fromCharCode(65 + i % 26));
+
+//   // Handle window resize for mobile/tablet
+//   useEffect(() => {
+//     const handleResize = () => setIsMobileOrTablet(window.innerWidth <= 1024);
+//     handleResize();
+//     window.addEventListener('resize', handleResize);
+//     return () => window.removeEventListener('resize', handleResize);
+//   }, []);
+
+//   useEffect(() => {
+//     const handleKey = (e) => {
+//       const index = placeholderKeys.findIndex(k => k.toLowerCase() === e.key.toLowerCase());
+//       if (index !== -1 && play) play(animKeys[index]);
+//     };
+//     window.addEventListener('keydown', handleKey);
+//     return () => window.removeEventListener('keydown', handleKey);
+//   }, [play]);
+
+//   const buttonStyle = {
+//     padding: '20px 0px',
+//     margin: '6px 0',
+//     borderRadius: '8px',
+//     background: '#007aff',
+//     border: 'none',
+//     color: 'white',
+//     fontWeight: 'bold',
+//     cursor: 'pointer',
+//     width: '150px',
+//     fontSize: '14px',
+//     whiteSpace: 'normal',
+//     wordWrap: 'break-word',
+//     textAlign: 'center'
+//   };
+
+//   const allButtons = [...leftExtraButtons, ...leftButtons, ...rightButtons, ...rightExtraButtons];
+
+//   return (
+//     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '-70px' }}>
+//       {isMobileOrTablet ? (
+//         <>
+//           {/* Canvas */}
+//           <div className="canvas-container" style={{ width: '100%', maxWidth: '400px', height: '500px', borderRadius: '12px', overflow: 'hidden', margin: '0 auto' }}>
+//             {loading && (
+//               <div style={{
+//                 position: 'absolute',
+//                 top: '50%',
+//                 left: '50%',
+//                 transform: 'translate(-50%, -50%)',
+//                 width: '180px',
+//                 height: '180px',
+//                 border: '8px solid #ccc',
+//                 borderTop: '8px solid #007aff',
+//                 borderRadius: '50%',
+//                 animation: 'spin 1s linear infinite',
+//                 zIndex: 10
+//               }} />
+//             )}
+//             <Canvas style={{ width: '100%', height: '100%' }} camera={{ position: [0, 1.5, 4], fov: 40 }}>
+//               <ambientLight intensity={0.4} />
+//               <directionalLight position={[5, 3, 5]} intensity={4.4} />
+//               <directionalLight position={[-5, 3, 5]} intensity={4.4} />
+//               <Suspense fallback={null}>
+//                 <FBXModel onReady={(fn) => setPlay(() => fn)} setLoading={setLoading} />
+//               </Suspense>
+//               <OrbitControls enablePan={false} />
+//             </Canvas>
+//           </div>
+
+//           {/* All buttons stacked below canvas */}
+//           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '6px', marginTop: '12px' }}>
+//             {allButtons.map((name, i) => (
+//               <button key={name} style={buttonStyle} onClick={() => play && play(name)}>
+//                 {name.replace(/_/g, ' ').toUpperCase()} ({String.fromCharCode(65 + i % 26)})
+//               </button>
+//             ))}
+//           </div>
+//         </>
+//       ) : (
+//         <>
+//           {/* Desktop: keep old 5-column layout */}
+//           <div className="grid-container" style={{
+//             display: 'grid',
+//             gridTemplateColumns: '150px 150px 400px 150px 150px',
+//             gap: '15px',
+//             alignItems: 'start'
+//           }}>
+//             {[leftExtraButtons, leftButtons, <div key="canvas" className="canvas-container" style={{
+//               width: '400px',
+//               height: '500px',
+//               borderRadius: '12px',
+//               overflow: 'hidden',
+//               position: 'relative',
+//               background: '#e0e0e0'
+//             }}>
+//               <Canvas style={{ width: '100%', height: '100%' }} camera={{ position: [0, 1.5, 4], fov: 40 }}>
+//                 <ambientLight intensity={0.4} />
+//                 <directionalLight position={[5, 3, 5]} intensity={4.4} />
+//                 <directionalLight position={[-5, 3, 5]} intensity={4.4} />
+//                 <Suspense fallback={null}>
+//                   <FBXModel onReady={(fn) => setPlay(() => fn)} setLoading={setLoading} />
+//                 </Suspense>
+//                 <OrbitControls enablePan={false} />
+//               </Canvas>
+//             </div>, rightButtons, rightExtraButtons].map((column, i, arr) =>
+//               <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+//                 {Array.isArray(column) ? column.map((name, j) => {
+//                   // fixed letter calculation ignoring canvas column
+//                   const prevButtonsCount = arr.slice(0, i).reduce((sum, c) => Array.isArray(c) ? sum + c.length : sum, 0);
+//                   return (
+//                     <button key={name} style={buttonStyle} onClick={() => play && play(name)}>
+//                       {name.replace(/_/g, ' ').toUpperCase()} ({placeholderKeys[(prevButtonsCount + j) % 26]})
+//                     </button>
+//                   );
+//                 }) : column}
+//               </div>
+//             )}
+//           </div>
+//         </>
+//       )}
+
+//       <style>{`
+//         @keyframes spin {
+//           0% { transform: translate(-50%, -50%) rotate(0deg); }
+//           100% { transform: translate(-50%, -50%) rotate(360deg); }
+//         }
+//       `}</style>
+//     </div>
+//   );
+// }
+
+//code 10.9
 'use client';
 
 import * as THREE from 'three';
@@ -2096,7 +2337,7 @@ import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 
 // ---------------------------------------------------
 // ANIMATION FILES (FBX)
-// ---------------------------------------------------t
+// ---------------------------------------------------
 const animations = {
   idle: '/character/Idle.fbx',
   walk: '/character/Walking.fbx',
@@ -2164,6 +2405,7 @@ function FBXModel({ onReady, setLoading }) {
 
     const playAnimation = (name) => {
       if (!actions.current[name]) return;
+
       if (currentAction.current) currentAction.current.fadeOut(0.2);
       const action = actions.current[name];
       currentAction.current = action;
@@ -2187,15 +2429,17 @@ export default function CharacterFBX() {
   const [isMobileOrTablet, setIsMobileOrTablet] = useState(false);
 
   const animKeys = Object.keys(animations);
-
-  // Split buttons into four columns: leftExtra / left / right / rightExtra
   const quarter = Math.ceil(animKeys.length / 4);
+
   const leftExtraButtons = animKeys.slice(0, quarter);
   const leftButtons = animKeys.slice(quarter, 2 * quarter);
   const rightButtons = animKeys.slice(2 * quarter, 3 * quarter);
   const rightExtraButtons = animKeys.slice(3 * quarter);
 
   const placeholderKeys = animKeys.map((_, i) => String.fromCharCode(65 + i % 26));
+
+  // AUDIO
+  const audioRef = useRef(new Audio('/music/sir.m4a'));
 
   // Handle window resize for mobile/tablet
   useEffect(() => {
@@ -2205,14 +2449,30 @@ export default function CharacterFBX() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Handle keyboard
   useEffect(() => {
     const handleKey = (e) => {
       const index = placeholderKeys.findIndex(k => k.toLowerCase() === e.key.toLowerCase());
-      if (index !== -1 && play) play(animKeys[index]);
+      if (index !== -1 && play) handlePlay(animKeys[index]);
     };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
   }, [play]);
+
+  const handlePlay = (name) => {
+    if (!play) return;
+
+    // Play animation
+    play(name);
+
+    // Play/stop music
+    if (name === 'dance') {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play();
+    } else {
+      audioRef.current.pause();
+    }
+  };
 
   const buttonStyle = {
     padding: '20px 0px',
@@ -2240,12 +2500,9 @@ export default function CharacterFBX() {
           <div className="canvas-container" style={{ width: '100%', maxWidth: '400px', height: '500px', borderRadius: '12px', overflow: 'hidden', margin: '0 auto' }}>
             {loading && (
               <div style={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
+                position: 'absolute', top: '50%', left: '50%',
                 transform: 'translate(-50%, -50%)',
-                width: '180px',
-                height: '180px',
+                width: '180px', height: '180px',
                 border: '8px solid #ccc',
                 borderTop: '8px solid #007aff',
                 borderRadius: '50%',
@@ -2264,10 +2521,10 @@ export default function CharacterFBX() {
             </Canvas>
           </div>
 
-          {/* All buttons stacked below canvas */}
+          {/* Buttons */}
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '6px', marginTop: '12px' }}>
             {allButtons.map((name, i) => (
-              <button key={name} style={buttonStyle} onClick={() => play && play(name)}>
+              <button key={name} style={buttonStyle} onClick={() => handlePlay(name)}>
                 {name.replace(/_/g, ' ').toUpperCase()} ({String.fromCharCode(65 + i % 26)})
               </button>
             ))}
@@ -2275,21 +2532,9 @@ export default function CharacterFBX() {
         </>
       ) : (
         <>
-          {/* Desktop: keep old 5-column layout */}
-          <div className="grid-container" style={{
-            display: 'grid',
-            gridTemplateColumns: '150px 150px 400px 150px 150px',
-            gap: '15px',
-            alignItems: 'start'
-          }}>
-            {[leftExtraButtons, leftButtons, <div key="canvas" className="canvas-container" style={{
-              width: '400px',
-              height: '500px',
-              borderRadius: '12px',
-              overflow: 'hidden',
-              position: 'relative',
-              background: '#e0e0e0'
-            }}>
+          {/* Desktop grid layout */}
+          <div className="grid-container" style={{ display: 'grid', gridTemplateColumns: '150px 150px 400px 150px 150px', gap: '15px', alignItems: 'start' }}>
+            {[leftExtraButtons, leftButtons, <div key="canvas" className="canvas-container" style={{ width: '400px', height: '500px', borderRadius: '12px', overflow: 'hidden', position: 'relative', background: '#e0e0e0' }}>
               <Canvas style={{ width: '100%', height: '100%' }} camera={{ position: [0, 1.5, 4], fov: 40 }}>
                 <ambientLight intensity={0.4} />
                 <directionalLight position={[5, 3, 5]} intensity={4.4} />
@@ -2299,23 +2544,22 @@ export default function CharacterFBX() {
                 </Suspense>
                 <OrbitControls enablePan={false} />
               </Canvas>
-            </div>, rightButtons, rightExtraButtons].map((column, i, arr) =>
+            </div>, rightButtons, rightExtraButtons].map((column, i) => (
               <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                 {Array.isArray(column) ? column.map((name, j) => {
-                  // fixed letter calculation ignoring canvas column
-                  const prevButtonsCount = arr.slice(0, i).reduce((sum, c) => Array.isArray(c) ? sum + c.length : sum, 0);
+                  const globalIndex = allButtons.indexOf(name); // exact position in full list
                   return (
-                    <button key={name} style={buttonStyle} onClick={() => play && play(name)}>
-                      {name.replace(/_/g, ' ').toUpperCase()} ({placeholderKeys[(prevButtonsCount + j) % 26]})
+                    <button key={name} style={buttonStyle} onClick={() => handlePlay(name)}>
+                      {name.replace(/_/g, ' ').toUpperCase()} ({placeholderKeys[globalIndex % 26]})
                     </button>
-                  );
+                  )
                 }) : column}
+
               </div>
-            )}
+            ))}
           </div>
         </>
       )}
-
       <style>{`
         @keyframes spin {
           0% { transform: translate(-50%, -50%) rotate(0deg); }
@@ -2327,7 +2571,8 @@ export default function CharacterFBX() {
 }
 
 
-//code 11 to add music but some issues, use it as a learning lesson in your free time no less.
+
+// code 11 to add music but some issues, use it as a learning lesson in your free time no less.
 // 'use client';
 
 // import * as THREE from 'three';
