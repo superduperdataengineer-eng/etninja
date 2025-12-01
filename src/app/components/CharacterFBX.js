@@ -2487,7 +2487,8 @@ export default function CharacterFBX() {
     fontSize: '14px',
     whiteSpace: 'normal',
     wordWrap: 'break-word',
-    textAlign: 'center'
+    textAlign: 'center',
+    padding: '20px'
   };
 
   const allButtons = [...leftExtraButtons, ...leftButtons, ...rightButtons, ...rightExtraButtons];
