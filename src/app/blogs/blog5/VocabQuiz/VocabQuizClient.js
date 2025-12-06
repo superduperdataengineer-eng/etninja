@@ -1753,7 +1753,7 @@
 //   );
 // }
 
-//code 7
+//code 7 works fro chrome but not for android phone in other than english or iphones
 'use client';
 
 import { useEffect, useState } from 'react';
