@@ -4936,7 +4936,7 @@ const animationsSet2 = {
   blow_a_kiss: '/character/BlowAKiss.fbx',
   get_up: '/character/GetUp.fbx',
   open_close_go_in: '/character/OpenCloseGoIn.fbx',
-  put_down: '/character/PuttingDown.fbx',
+  put_down: '/character/PutDown.fbx',
   grab_get: '/character/GrabGet.fbx',
   pick_up_put_down: '/character/PickUpPutDown.fbx'
 };
