@@ -171,7 +171,7 @@ export default function Page() {
         }}
       >
         <VideoPlayer
-          url="https://www.youtube.com/watch?v=eEbF6OP-34M"
+          url="https://www.youtube.com/watch?v=Lih7_P_hdNg&t=787s"
         />
       </div>
 
