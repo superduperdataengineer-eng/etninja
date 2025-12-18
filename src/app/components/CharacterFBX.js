@@ -5396,19 +5396,40 @@ export default function CharacterFBX() {
     return () => window.removeEventListener('keydown', handleKey);
   }, [play, animKeys]);
 
-  const buttonStyle = {
-    padding: '20px',
-    margin: '6px 0',
-    borderRadius: '8px',
-    background: '#007aff',
-    border: 'none',
-    color: 'white',
-    fontWeight: 'bold',
-    cursor: 'pointer',
-    width: '150px',
-    fontSize: '14px',
-    textAlign: 'center'
-  };
+  // const buttonStyle = {
+  //   padding: '20px',
+  //   margin: '6px 0',
+  //   borderRadius: '8px',
+  //   background: '#007aff',
+  //   border: 'none',
+  //   color: 'white',
+  //   fontWeight: 'bold',
+  //   cursor: 'pointer',
+  //   width: '150px',
+  //   fontSize: '14px',
+  //   textAlign: 'center'
+  // };
+    const buttonStyle = {
+      padding: '14px 10px',
+      margin: '6px 0',
+      borderRadius: '8px',
+      background: '#007aff',
+      border: 'none',
+      color: 'white',
+      fontWeight: 'bold',
+      cursor: 'pointer',
+      width: '150px',
+      fontSize: '14px',
+      textAlign: 'center',
+
+      /* 🔑 THE IMPORTANT PART */
+      whiteSpace: 'normal',
+      wordBreak: 'break-word',
+      overflowWrap: 'anywhere',
+      lineHeight: '1.2',
+      boxSizing: 'border-box'
+    };
+
 
   const allButtons = [
     ...leftExtraButtons,
