@@ -220,89 +220,186 @@
 // }
 
 
-//code 3
+//code 3 doesn't deploy
+// export const dynamic = 'force-static';
+// import fs from 'fs';
+// import path from 'path';
+
+// /* ---------- helpers (server-only) ---------- */
+
+// function extractNumber(name) {
+//   const match = name.match(/^(\d+)/);
+//   return match ? parseInt(match[1], 10) : 9999;
+// }
+
+// function getData() {
+//   const publicDir = path.join(process.cwd(), 'public');
+
+//   function readImageFolders(baseDir, webBase) {
+//     return fs
+//       .readdirSync(baseDir, { withFileTypes: true })
+//       .filter(d => d.isDirectory())
+//       .sort((a, b) => extractNumber(a.name) - extractNumber(b.name))
+//       .map(folder => {
+//         const folderPath = path.join(baseDir, folder.name);
+
+//         const images = fs
+//           .readdirSync(folderPath)
+//           .filter(f => /\.(jpg|jpeg|png|webp|gif)$/i.test(f))
+//           .sort((a, b) => extractNumber(a) - extractNumber(b))
+//           .map(file => ({
+//             name: file,
+//             src: `${webBase}/${folder.name}/${file}`
+//           }));
+
+//         return {
+//           title: folder.name,
+//           images
+//         };
+//       });
+//   }
+
+//   return {
+//     linePics: readImageFolders(
+//       path.join(publicDir, 'ActionStoriesPics', 'LinePics'),
+//       '/ActionStoriesPics/LinePics'
+//     ),
+//     vocabPics: readImageFolders(
+//       path.join(publicDir, 'ActionStoriesPics', 'VocabPics'),
+//       '/ActionStoriesPics/VocabPics'
+//     ),
+//     linesCSV: fs.readFileSync(
+//       path.join(publicDir, 'actionCSV', 'LinesCSV.csv'),
+//       'utf-8'
+//     ),
+//     titlesCSV: fs.readFileSync(
+//       path.join(publicDir, 'actionCSV', 'TitlesCSV.csv'),
+//       'utf-8'
+//     ),
+//     vocabCSV: fs.readFileSync(
+//       path.join(publicDir, 'actionCSV', 'VocabularyCSV.csv'),
+//       'utf-8'
+//     )
+//   };
+// }
+
+// /* ---------- PAGE COMPONENT ---------- */
+
+// export default function Page() {
+//   const {
+//     linePics,
+//     vocabPics,
+//     linesCSV,
+//     titlesCSV,
+//     vocabCSV
+//   } = getData();
+
+//   return (
+//     <div style={{ padding: 24 }}>
+
+//       <h1>Line Pictures</h1>
+
+//       {linePics.map(folder => (
+//         <div key={folder.title} style={{ marginBottom: 40 }}>
+//           <h3>{folder.title}</h3>
+
+//           <div
+//             style={{
+//               display: 'grid',
+//               gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))',
+//               gap: 16
+//             }}
+//           >
+//             {folder.images.map(img => (
+//               <div key={img.src} style={{ textAlign: 'center' }}>
+//                 <img
+//                   src={encodeURI(img.src)}
+//                   alt={img.name}
+//                   style={{ width: '100%', height: 'auto' }}
+//                 />
+//                 <div style={{ fontSize: 12, marginTop: 4 }}>
+//                   {img.name}
+//                 </div>
+//               </div>
+//             ))}
+//           </div>
+//         </div>
+//       ))}
+
+//       <h1>Vocabulary Pictures</h1>
+
+//       {vocabPics.map(folder => (
+//         <div key={folder.title} style={{ marginBottom: 40 }}>
+//           <h3>{folder.title}</h3>
+
+//           <div
+//             style={{
+//               display: 'grid',
+//               gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))',
+//               gap: 16
+//             }}
+//           >
+//             {folder.images.map(img => (
+//               <div key={img.src} style={{ textAlign: 'center' }}>
+//                 <img
+//                   src={encodeURI(img.src)}
+//                   alt={img.name}
+//                   style={{ width: '100%', height: 'auto' }}
+//                 />
+//                 <div style={{ fontSize: 12, marginTop: 4 }}>
+//                   {img.name}
+//                 </div>
+//               </div>
+//             ))}
+//           </div>
+//         </div>
+//       ))}
+
+//       <h1>CSV Data</h1>
+
+//       <h3>LinesCSV.csv</h3>
+//       <pre>{linesCSV}</pre>
+
+//       <h3>TitlesCSV.csv</h3>
+//       <pre>{titlesCSV}</pre>
+
+//       <h3>VocabularyCSV.csv</h3>
+//       <pre>{vocabCSV}</pre>
+
+//     </div>
+//   );
+// }
+
+
+//code 4
+'use client';
+import { useEffect, useState } from 'react';
+
 export const dynamic = 'force-static';
-import fs from 'fs';
-import path from 'path';
-
-/* ---------- helpers (server-only) ---------- */
-
-function extractNumber(name) {
-  const match = name.match(/^(\d+)/);
-  return match ? parseInt(match[1], 10) : 9999;
-}
-
-function getData() {
-  const publicDir = path.join(process.cwd(), 'public');
-
-  function readImageFolders(baseDir, webBase) {
-    return fs
-      .readdirSync(baseDir, { withFileTypes: true })
-      .filter(d => d.isDirectory())
-      .sort((a, b) => extractNumber(a.name) - extractNumber(b.name))
-      .map(folder => {
-        const folderPath = path.join(baseDir, folder.name);
-
-        const images = fs
-          .readdirSync(folderPath)
-          .filter(f => /\.(jpg|jpeg|png|webp|gif)$/i.test(f))
-          .sort((a, b) => extractNumber(a) - extractNumber(b))
-          .map(file => ({
-            name: file,
-            src: `${webBase}/${folder.name}/${file}`
-          }));
-
-        return {
-          title: folder.name,
-          images
-        };
-      });
-  }
-
-  return {
-    linePics: readImageFolders(
-      path.join(publicDir, 'ActionStoriesPics', 'LinePics'),
-      '/ActionStoriesPics/LinePics'
-    ),
-    vocabPics: readImageFolders(
-      path.join(publicDir, 'ActionStoriesPics', 'VocabPics'),
-      '/ActionStoriesPics/VocabPics'
-    ),
-    linesCSV: fs.readFileSync(
-      path.join(publicDir, 'actionCSV', 'LinesCSV.csv'),
-      'utf-8'
-    ),
-    titlesCSV: fs.readFileSync(
-      path.join(publicDir, 'actionCSV', 'TitlesCSV.csv'),
-      'utf-8'
-    ),
-    vocabCSV: fs.readFileSync(
-      path.join(publicDir, 'actionCSV', 'VocabularyCSV.csv'),
-      'utf-8'
-    )
-  };
-}
-
-/* ---------- PAGE COMPONENT ---------- */
 
 export default function Page() {
-  const {
-    linePics,
-    vocabPics,
-    linesCSV,
-    titlesCSV,
-    vocabCSV
-  } = getData();
+  const [data, setData] = useState({
+    linePics: [],
+    vocabPics: [],
+    linesCSV: '',
+    titlesCSV: '',
+    vocabCSV: ''
+  });
+
+  useEffect(() => {
+    fetch('/segredosecret.json')
+      .then(res => res.json())
+      .then(setData)
+      .catch(err => console.error('Failed to load JSON:', err));
+  }, []);
 
   return (
-    <div style={{ padding: 24 }}>
-
+    <div style={{ padding: 20 }}>
+      {/* ---------- LINE PICTURES ---------- */}
       <h1>Line Pictures</h1>
-
-      {linePics.map(folder => (
+      {data.linePics.map(folder => (
         <div key={folder.title} style={{ marginBottom: 40 }}>
           <h3>{folder.title}</h3>
-
           <div
             style={{
               display: 'grid',
@@ -310,15 +407,11 @@ export default function Page() {
               gap: 16
             }}
           >
-            {folder.images.map(img => (
-              <div key={img.src} style={{ textAlign: 'center' }}>
-                <img
-                  src={encodeURI(img.src)}
-                  alt={img.name}
-                  style={{ width: '100%', height: 'auto' }}
-                />
+            {folder.images.map(src => (
+              <div key={src} style={{ textAlign: 'center' }}>
+                <img src={encodeURI(src)} alt={src} style={{ width: 160 }} />
                 <div style={{ fontSize: 12, marginTop: 4 }}>
-                  {img.name}
+                  {src.split('/').pop()}
                 </div>
               </div>
             ))}
@@ -326,12 +419,11 @@ export default function Page() {
         </div>
       ))}
 
+      {/* ---------- VOCABULARY PICTURES ---------- */}
       <h1>Vocabulary Pictures</h1>
-
-      {vocabPics.map(folder => (
+      {data.vocabPics.map(folder => (
         <div key={folder.title} style={{ marginBottom: 40 }}>
           <h3>{folder.title}</h3>
-
           <div
             style={{
               display: 'grid',
@@ -339,15 +431,11 @@ export default function Page() {
               gap: 16
             }}
           >
-            {folder.images.map(img => (
-              <div key={img.src} style={{ textAlign: 'center' }}>
-                <img
-                  src={encodeURI(img.src)}
-                  alt={img.name}
-                  style={{ width: '100%', height: 'auto' }}
-                />
+            {folder.images.map(src => (
+              <div key={src} style={{ textAlign: 'center' }}>
+                <img src={encodeURI(src)} alt={src} style={{ width: 160 }} />
                 <div style={{ fontSize: 12, marginTop: 4 }}>
-                  {img.name}
+                  {src.split('/').pop()}
                 </div>
               </div>
             ))}
@@ -355,17 +443,17 @@ export default function Page() {
         </div>
       ))}
 
+      {/* ---------- CSV DATA ---------- */}
       <h1>CSV Data</h1>
 
       <h3>LinesCSV.csv</h3>
-      <pre>{linesCSV}</pre>
+      <pre>{data.linesCSV}</pre>
 
       <h3>TitlesCSV.csv</h3>
-      <pre>{titlesCSV}</pre>
+      <pre>{data.titlesCSV}</pre>
 
       <h3>VocabularyCSV.csv</h3>
-      <pre>{vocabCSV}</pre>
-
+      <pre>{data.vocabCSV}</pre>
     </div>
   );
 }
