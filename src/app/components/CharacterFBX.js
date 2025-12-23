@@ -1600,7 +1600,16 @@ export default function CharacterFBX() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      
+        <div
+        style={{
+          fontSize: '24px',
+          fontWeight: 'bold',
+          marginBottom: '12px',
+        }}
+        >
+           USE CHROME
+        </div>
+
       {/* LANGUAGE SWITCH */}
       <div
         style={{
