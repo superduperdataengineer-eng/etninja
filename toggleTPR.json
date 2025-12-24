@@ -1,0 +1,838 @@
+[
+  {
+    "name": "A1_atlas_0.jpg",
+    "src": "/toggleTPR/A1_atlas_0.jpg"
+  },
+  {
+    "name": "A1_atlas_1.jpg",
+    "src": "/toggleTPR/A1_atlas_1.jpg"
+  },
+  {
+    "name": "A2_atlas_0.jpg",
+    "src": "/toggleTPR/A2_atlas_0.jpg"
+  },
+  {
+    "name": "A2_atlas_1.jpg",
+    "src": "/toggleTPR/A2_atlas_1.jpg"
+  },
+  {
+    "name": "airconditioner-off.jpg",
+    "src": "/toggleTPR/airconditioner-off.jpg"
+  },
+  {
+    "name": "airconditioner-on.jpg",
+    "src": "/toggleTPR/airconditioner-on.jpg"
+  },
+  {
+    "name": "alarm-off.jpg",
+    "src": "/toggleTPR/alarm-off.jpg"
+  },
+  {
+    "name": "alarm-on.jpg",
+    "src": "/toggleTPR/alarm-on.jpg"
+  },
+  {
+    "name": "amazon.jpg",
+    "src": "/toggleTPR/amazon.jpg"
+  },
+  {
+    "name": "apple-off.jpg",
+    "src": "/toggleTPR/apple-off.jpg"
+  },
+  {
+    "name": "apple-on.jpg",
+    "src": "/toggleTPR/apple-on.jpg"
+  },
+  {
+    "name": "armchair-off.jpg",
+    "src": "/toggleTPR/armchair-off.jpg"
+  },
+  {
+    "name": "armchair-on.jpg",
+    "src": "/toggleTPR/armchair-on.jpg"
+  },
+  {
+    "name": "B1_atlas_0.jpg",
+    "src": "/toggleTPR/B1_atlas_0.jpg"
+  },
+  {
+    "name": "B1_atlas_1.jpg",
+    "src": "/toggleTPR/B1_atlas_1.jpg"
+  },
+  {
+    "name": "B1_atlas_2.jpg",
+    "src": "/toggleTPR/B1_atlas_2.jpg"
+  },
+  {
+    "name": "B1_atlas_3.jpg",
+    "src": "/toggleTPR/B1_atlas_3.jpg"
+  },
+  {
+    "name": "B2_atlas_0.jpg",
+    "src": "/toggleTPR/B2_atlas_0.jpg"
+  },
+  {
+    "name": "B2_atlas_1.jpg",
+    "src": "/toggleTPR/B2_atlas_1.jpg"
+  },
+  {
+    "name": "B2_atlas_2.jpg",
+    "src": "/toggleTPR/B2_atlas_2.jpg"
+  },
+  {
+    "name": "B2_atlas_3.jpg",
+    "src": "/toggleTPR/B2_atlas_3.jpg"
+  },
+  {
+    "name": "B2_atlas_4.jpg",
+    "src": "/toggleTPR/B2_atlas_4.jpg"
+  },
+  {
+    "name": "bed-off.jpg",
+    "src": "/toggleTPR/bed-off.jpg"
+  },
+  {
+    "name": "bed-on.jpg",
+    "src": "/toggleTPR/bed-on.jpg"
+  },
+  {
+    "name": "bedass-off.jpg",
+    "src": "/toggleTPR/bedass-off.jpg"
+  },
+  {
+    "name": "bedass-on.jpg",
+    "src": "/toggleTPR/bedass-on.jpg"
+  },
+  {
+    "name": "bite-off.jpg",
+    "src": "/toggleTPR/bite-off.jpg"
+  },
+  {
+    "name": "bite-on.jpg",
+    "src": "/toggleTPR/bite-on.jpg"
+  },
+  {
+    "name": "blender-off.jpg",
+    "src": "/toggleTPR/blender-off.jpg"
+  },
+  {
+    "name": "blender-on.jpg",
+    "src": "/toggleTPR/blender-on.jpg"
+  },
+  {
+    "name": "blinds-off.jpg",
+    "src": "/toggleTPR/blinds-off.jpg"
+  },
+  {
+    "name": "blinds-on.jpg",
+    "src": "/toggleTPR/blinds-on.jpg"
+  },
+  {
+    "name": "book-off.jpg",
+    "src": "/toggleTPR/book-off.jpg"
+  },
+  {
+    "name": "book-on.jpg",
+    "src": "/toggleTPR/book-on.jpg"
+  },
+  {
+    "name": "box-off.jpg",
+    "src": "/toggleTPR/box-off.jpg"
+  },
+  {
+    "name": "box-on.jpg",
+    "src": "/toggleTPR/box-on.jpg"
+  },
+  {
+    "name": "bread-off.jpg",
+    "src": "/toggleTPR/bread-off.jpg"
+  },
+  {
+    "name": "bread-on.jpg",
+    "src": "/toggleTPR/bread-on.jpg"
+  },
+  {
+    "name": "C1_atlas_0.jpg",
+    "src": "/toggleTPR/C1_atlas_0.jpg"
+  },
+  {
+    "name": "C1_atlas_1.jpg",
+    "src": "/toggleTPR/C1_atlas_1.jpg"
+  },
+  {
+    "name": "C2_atlas_0.jpg",
+    "src": "/toggleTPR/C2_atlas_0.jpg"
+  },
+  {
+    "name": "C2_atlas_1.jpg",
+    "src": "/toggleTPR/C2_atlas_1.jpg"
+  },
+  {
+    "name": "camera-off.jpg",
+    "src": "/toggleTPR/camera-off.jpg"
+  },
+  {
+    "name": "camera-on.jpg",
+    "src": "/toggleTPR/camera-on.jpg"
+  },
+  {
+    "name": "candle-off.jpg",
+    "src": "/toggleTPR/candle-off.jpg"
+  },
+  {
+    "name": "candle-on.jpg",
+    "src": "/toggleTPR/candle-on.jpg"
+  },
+  {
+    "name": "car-off.jpg",
+    "src": "/toggleTPR/car-off.jpg"
+  },
+  {
+    "name": "car-on.jpg",
+    "src": "/toggleTPR/car-on.jpg"
+  },
+  {
+    "name": "cargetout-off.jpg",
+    "src": "/toggleTPR/cargetout-off.jpg"
+  },
+  {
+    "name": "cargetout-on.jpg",
+    "src": "/toggleTPR/cargetout-on.jpg"
+  },
+  {
+    "name": "carrot-off.jpg",
+    "src": "/toggleTPR/carrot-off.jpg"
+  },
+  {
+    "name": "carrot-on.jpg",
+    "src": "/toggleTPR/carrot-on.jpg"
+  },
+  {
+    "name": "cellswipe-off.jpg",
+    "src": "/toggleTPR/cellswipe-off.jpg"
+  },
+  {
+    "name": "cellswipe-on.jpg",
+    "src": "/toggleTPR/cellswipe-on.jpg"
+  },
+  {
+    "name": "chair-off.jpg",
+    "src": "/toggleTPR/chair-off.jpg"
+  },
+  {
+    "name": "chair-on.jpg",
+    "src": "/toggleTPR/chair-on.jpg"
+  },
+  {
+    "name": "character.jpg",
+    "src": "/toggleTPR/character.jpg"
+  },
+  {
+    "name": "charger-off.jpg",
+    "src": "/toggleTPR/charger-off.jpg"
+  },
+  {
+    "name": "charger-on.jpg",
+    "src": "/toggleTPR/charger-on.jpg"
+  },
+  {
+    "name": "coat-off.jpg",
+    "src": "/toggleTPR/coat-off.jpg"
+  },
+  {
+    "name": "coat-on.jpg",
+    "src": "/toggleTPR/coat-on.jpg"
+  },
+  {
+    "name": "coffeemaker-off.jpg",
+    "src": "/toggleTPR/coffeemaker-off.jpg"
+  },
+  {
+    "name": "coffeemaker-on.jpg",
+    "src": "/toggleTPR/coffeemaker-on.jpg"
+  },
+  {
+    "name": "computer-off.jpg",
+    "src": "/toggleTPR/computer-off.jpg"
+  },
+  {
+    "name": "computer-on.jpg",
+    "src": "/toggleTPR/computer-on.jpg"
+  },
+  {
+    "name": "couch-off.jpg",
+    "src": "/toggleTPR/couch-off.jpg"
+  },
+  {
+    "name": "couch-on.jpg",
+    "src": "/toggleTPR/couch-on.jpg"
+  },
+  {
+    "name": "cup-off.jpg",
+    "src": "/toggleTPR/cup-off.jpg"
+  },
+  {
+    "name": "cup-on.jpg",
+    "src": "/toggleTPR/cup-on.jpg"
+  },
+  {
+    "name": "curtain-off.jpg",
+    "src": "/toggleTPR/curtain-off.jpg"
+  },
+  {
+    "name": "curtain-on.jpg",
+    "src": "/toggleTPR/curtain-on.jpg"
+  },
+  {
+    "name": "dishwasher-off.jpg",
+    "src": "/toggleTPR/dishwasher-off.jpg"
+  },
+  {
+    "name": "dishwasher-on.jpg",
+    "src": "/toggleTPR/dishwasher-on.jpg"
+  },
+  {
+    "name": "door(lock)-off.jpg",
+    "src": "/toggleTPR/door(lock)-off.jpg"
+  },
+  {
+    "name": "door(lock)-on.jpg",
+    "src": "/toggleTPR/door(lock)-on.jpg"
+  },
+  {
+    "name": "door-off.jpg",
+    "src": "/toggleTPR/door-off.jpg"
+  },
+  {
+    "name": "door-on.jpg",
+    "src": "/toggleTPR/door-on.jpg"
+  },
+  {
+    "name": "doorbell-off.jpg",
+    "src": "/toggleTPR/doorbell-off.jpg"
+  },
+  {
+    "name": "doorbell-on.jpg",
+    "src": "/toggleTPR/doorbell-on.jpg"
+  },
+  {
+    "name": "drawer-off.jpg",
+    "src": "/toggleTPR/drawer-off.jpg"
+  },
+  {
+    "name": "drawer-on.jpg",
+    "src": "/toggleTPR/drawer-on.jpg"
+  },
+  {
+    "name": "dwfill-off.jpg",
+    "src": "/toggleTPR/dwfill-off.jpg"
+  },
+  {
+    "name": "dwfill-on.jpg",
+    "src": "/toggleTPR/dwfill-on.jpg"
+  },
+  {
+    "name": "eggs-off.jpg",
+    "src": "/toggleTPR/eggs-off.jpg"
+  },
+  {
+    "name": "eggs-on.jpg",
+    "src": "/toggleTPR/eggs-on.jpg"
+  },
+  {
+    "name": "eyes-off.jpg",
+    "src": "/toggleTPR/eyes-off.jpg"
+  },
+  {
+    "name": "eyes-on.jpg",
+    "src": "/toggleTPR/eyes-on.jpg"
+  },
+  {
+    "name": "fan-off.jpg",
+    "src": "/toggleTPR/fan-off.jpg"
+  },
+  {
+    "name": "fan-on.jpg",
+    "src": "/toggleTPR/fan-on.jpg"
+  },
+  {
+    "name": "faucet-off.jpg",
+    "src": "/toggleTPR/faucet-off.jpg"
+  },
+  {
+    "name": "faucet-on.jpg",
+    "src": "/toggleTPR/faucet-on.jpg"
+  },
+  {
+    "name": "flashlight-off.jpg",
+    "src": "/toggleTPR/flashlight-off.jpg"
+  },
+  {
+    "name": "flashlight-on.jpg",
+    "src": "/toggleTPR/flashlight-on.jpg"
+  },
+  {
+    "name": "fridge-off.jpg",
+    "src": "/toggleTPR/fridge-off.jpg"
+  },
+  {
+    "name": "fridge-on.jpg",
+    "src": "/toggleTPR/fridge-on.jpg"
+  },
+  {
+    "name": "garagedoor-off.jpg",
+    "src": "/toggleTPR/garagedoor-off.jpg"
+  },
+  {
+    "name": "garagedoor-on.jpg",
+    "src": "/toggleTPR/garagedoor-on.jpg"
+  },
+  {
+    "name": "glasses-off.jpg",
+    "src": "/toggleTPR/glasses-off.jpg"
+  },
+  {
+    "name": "glasses-on.jpg",
+    "src": "/toggleTPR/glasses-on.jpg"
+  },
+  {
+    "name": "gloves-off.jpg",
+    "src": "/toggleTPR/gloves-off.jpg"
+  },
+  {
+    "name": "gloves-on.jpg",
+    "src": "/toggleTPR/gloves-on.jpg"
+  },
+  {
+    "name": "hands-off.jpg",
+    "src": "/toggleTPR/hands-off.jpg"
+  },
+  {
+    "name": "hands-on.jpg",
+    "src": "/toggleTPR/hands-on.jpg"
+  },
+  {
+    "name": "hat-off.jpg",
+    "src": "/toggleTPR/hat-off.jpg"
+  },
+  {
+    "name": "hat-on.jpg",
+    "src": "/toggleTPR/hat-on.jpg"
+  },
+  {
+    "name": "headlights-off.jpg",
+    "src": "/toggleTPR/headlights-off.jpg"
+  },
+  {
+    "name": "headlights-on.jpg",
+    "src": "/toggleTPR/headlights-on.jpg"
+  },
+  {
+    "name": "heater-off.jpg",
+    "src": "/toggleTPR/heater-off.jpg"
+  },
+  {
+    "name": "heater-on.jpg",
+    "src": "/toggleTPR/heater-on.jpg"
+  },
+  {
+    "name": "hole-off.jpg",
+    "src": "/toggleTPR/hole-off.jpg"
+  },
+  {
+    "name": "hole-on.jpg",
+    "src": "/toggleTPR/hole-on.jpg"
+  },
+  {
+    "name": "jacket(wear)-off.jpg",
+    "src": "/toggleTPR/jacket(wear)-off.jpg"
+  },
+  {
+    "name": "jacket(wear)-on.jpg",
+    "src": "/toggleTPR/jacket(wear)-on.jpg"
+  },
+  {
+    "name": "jacket(zip)-off.jpg",
+    "src": "/toggleTPR/jacket(zip)-off.jpg"
+  },
+  {
+    "name": "jacket(zip)-on.jpg",
+    "src": "/toggleTPR/jacket(zip)-on.jpg"
+  },
+  {
+    "name": "jump-off.jpg",
+    "src": "/toggleTPR/jump-off.jpg"
+  },
+  {
+    "name": "jump-on.jpg",
+    "src": "/toggleTPR/jump-on.jpg"
+  },
+  {
+    "name": "kettle-off.jpg",
+    "src": "/toggleTPR/kettle-off.jpg"
+  },
+  {
+    "name": "kettle-on.jpg",
+    "src": "/toggleTPR/kettle-on.jpg"
+  },
+  {
+    "name": "lamp-off.jpg",
+    "src": "/toggleTPR/lamp-off.jpg"
+  },
+  {
+    "name": "lamp-on.jpg",
+    "src": "/toggleTPR/lamp-on.jpg"
+  },
+  {
+    "name": "lights-off.jpg",
+    "src": "/toggleTPR/lights-off.jpg"
+  },
+  {
+    "name": "lights-on.jpg",
+    "src": "/toggleTPR/lights-on.jpg"
+  },
+  {
+    "name": "luggage-off.jpg",
+    "src": "/toggleTPR/luggage-off.jpg"
+  },
+  {
+    "name": "luggage-on.jpg",
+    "src": "/toggleTPR/luggage-on.jpg"
+  },
+  {
+    "name": "maze.jpg",
+    "src": "/toggleTPR/maze.jpg"
+  },
+  {
+    "name": "microphone-off.jpg",
+    "src": "/toggleTPR/microphone-off.jpg"
+  },
+  {
+    "name": "microphone-on.jpg",
+    "src": "/toggleTPR/microphone-on.jpg"
+  },
+  {
+    "name": "microwave-off.jpg",
+    "src": "/toggleTPR/microwave-off.jpg"
+  },
+  {
+    "name": "microwave-on.jpg",
+    "src": "/toggleTPR/microwave-on.jpg"
+  },
+  {
+    "name": "milk-off.jpg",
+    "src": "/toggleTPR/milk-off.jpg"
+  },
+  {
+    "name": "milk-on.jpg",
+    "src": "/toggleTPR/milk-on.jpg"
+  },
+  {
+    "name": "mouse-off.jpg",
+    "src": "/toggleTPR/mouse-off.jpg"
+  },
+  {
+    "name": "mouse-on.jpg",
+    "src": "/toggleTPR/mouse-on.jpg"
+  },
+  {
+    "name": "nail-off.jpg",
+    "src": "/toggleTPR/nail-off.jpg"
+  },
+  {
+    "name": "nail-on.jpg",
+    "src": "/toggleTPR/nail-on.jpg"
+  },
+  {
+    "name": "necklace-off.jpg",
+    "src": "/toggleTPR/necklace-off.jpg"
+  },
+  {
+    "name": "necklace-on.jpg",
+    "src": "/toggleTPR/necklace-on.jpg"
+  },
+  {
+    "name": "note-off.jpg",
+    "src": "/toggleTPR/note-off.jpg"
+  },
+  {
+    "name": "note-on.jpg",
+    "src": "/toggleTPR/note-on.jpg"
+  },
+  {
+    "name": "oven-door-closed.jpg",
+    "src": "/toggleTPR/oven-door-closed.jpg"
+  },
+  {
+    "name": "oven-door-open.jpg",
+    "src": "/toggleTPR/oven-door-open.jpg"
+  },
+  {
+    "name": "oven-off.jpg",
+    "src": "/toggleTPR/oven-off.jpg"
+  },
+  {
+    "name": "oven-on.jpg",
+    "src": "/toggleTPR/oven-on.jpg"
+  },
+  {
+    "name": "patternISL2.jpg",
+    "src": "/toggleTPR/patternISL2.jpg"
+  },
+  {
+    "name": "paving.jpg",
+    "src": "/toggleTPR/paving.jpg"
+  },
+  {
+    "name": "PavingStones138.jpg",
+    "src": "/toggleTPR/PavingStones138.jpg"
+  },
+  {
+    "name": "phone-off.jpg",
+    "src": "/toggleTPR/phone-off.jpg"
+  },
+  {
+    "name": "phone-on.jpg",
+    "src": "/toggleTPR/phone-on.jpg"
+  },
+  {
+    "name": "preply.jpg",
+    "src": "/toggleTPR/preply.jpg"
+  },
+  {
+    "name": "radio-off.jpg",
+    "src": "/toggleTPR/radio-off.jpg"
+  },
+  {
+    "name": "radio-on.jpg",
+    "src": "/toggleTPR/radio-on.jpg"
+  },
+  {
+    "name": "raise-off.jpg",
+    "src": "/toggleTPR/raise-off.jpg"
+  },
+  {
+    "name": "raise-on.jpg",
+    "src": "/toggleTPR/raise-on.jpg"
+  },
+  {
+    "name": "remotecontrol-off.jpg",
+    "src": "/toggleTPR/remotecontrol-off.jpg"
+  },
+  {
+    "name": "remotecontrol-on.jpg",
+    "src": "/toggleTPR/remotecontrol-on.jpg"
+  },
+  {
+    "name": "run-off.jpg",
+    "src": "/toggleTPR/run-off.jpg"
+  },
+  {
+    "name": "run-on.jpg",
+    "src": "/toggleTPR/run-on.jpg"
+  },
+  {
+    "name": "Screenshot.jpg",
+    "src": "/toggleTPR/Screenshot.jpg"
+  },
+  {
+    "name": "seatbelt-off.jpg",
+    "src": "/toggleTPR/seatbelt-off.jpg"
+  },
+  {
+    "name": "seatbelt-on.jpg",
+    "src": "/toggleTPR/seatbelt-on.jpg"
+  },
+  {
+    "name": "shelf-off.jpg",
+    "src": "/toggleTPR/shelf-off.jpg"
+  },
+  {
+    "name": "shelf-on.jpg",
+    "src": "/toggleTPR/shelf-on.jpg"
+  },
+  {
+    "name": "shirt-off.jpg",
+    "src": "/toggleTPR/shirt-off.jpg"
+  },
+  {
+    "name": "shirt-on.jpg",
+    "src": "/toggleTPR/shirt-on.jpg"
+  },
+  {
+    "name": "shirtsl-off.jpg",
+    "src": "/toggleTPR/shirtsl-off.jpg"
+  },
+  {
+    "name": "shirtsl-on.jpg",
+    "src": "/toggleTPR/shirtsl-on.jpg"
+  },
+  {
+    "name": "shirtsl.off.jpg",
+    "src": "/toggleTPR/shirtsl.off.jpg"
+  },
+  {
+    "name": "shoelaces-off.jpg",
+    "src": "/toggleTPR/shoelaces-off.jpg"
+  },
+  {
+    "name": "shoelaces-on.jpg",
+    "src": "/toggleTPR/shoelaces-on.jpg"
+  },
+  {
+    "name": "shoes-off.jpg",
+    "src": "/toggleTPR/shoes-off.jpg"
+  },
+  {
+    "name": "shoes-on.jpg",
+    "src": "/toggleTPR/shoes-on.jpg"
+  },
+  {
+    "name": "sketch-off.jpg",
+    "src": "/toggleTPR/sketch-off.jpg"
+  },
+  {
+    "name": "sketch-on.jpg",
+    "src": "/toggleTPR/sketch-on.jpg"
+  },
+  {
+    "name": "socks-off.jpg",
+    "src": "/toggleTPR/socks-off.jpg"
+  },
+  {
+    "name": "socks-on.jpg",
+    "src": "/toggleTPR/socks-on.jpg"
+  },
+  {
+    "name": "soup-off.jpg",
+    "src": "/toggleTPR/soup-off.jpg"
+  },
+  {
+    "name": "soup-on.jpg",
+    "src": "/toggleTPR/soup-on.jpg"
+  },
+  {
+    "name": "star_07.jpg",
+    "src": "/toggleTPR/star_07.jpg"
+  },
+  {
+    "name": "suitcase-off.jpg",
+    "src": "/toggleTPR/suitcase-off.jpg"
+  },
+  {
+    "name": "suitcase-on.jpg",
+    "src": "/toggleTPR/suitcase-on.jpg"
+  },
+  {
+    "name": "table-off.jpg",
+    "src": "/toggleTPR/table-off.jpg"
+  },
+  {
+    "name": "table-on.jpg",
+    "src": "/toggleTPR/table-on.jpg"
+  },
+  {
+    "name": "text-off.jpg",
+    "src": "/toggleTPR/text-off.jpg"
+  },
+  {
+    "name": "text-on.jpg",
+    "src": "/toggleTPR/text-on.jpg"
+  },
+  {
+    "name": "trunk-off.jpg",
+    "src": "/toggleTPR/trunk-off.jpg"
+  },
+  {
+    "name": "trunk-on.jpg",
+    "src": "/toggleTPR/trunk-on.jpg"
+  },
+  {
+    "name": "turnoffstove.jpg",
+    "src": "/toggleTPR/turnoffstove.jpg"
+  },
+  {
+    "name": "turnonstove.jpg",
+    "src": "/toggleTPR/turnonstove.jpg"
+  },
+  {
+    "name": "tv-off.jpg",
+    "src": "/toggleTPR/tv-off.jpg"
+  },
+  {
+    "name": "tv-on.jpg",
+    "src": "/toggleTPR/tv-on.jpg"
+  },
+  {
+    "name": "vacuum-off.jpg",
+    "src": "/toggleTPR/vacuum-off.jpg"
+  },
+  {
+    "name": "vacuum-on.jpg",
+    "src": "/toggleTPR/vacuum-on.jpg"
+  },
+  {
+    "name": "van-off.jpg",
+    "src": "/toggleTPR/van-off.jpg"
+  },
+  {
+    "name": "van-on.jpg",
+    "src": "/toggleTPR/van-on.jpg"
+  },
+  {
+    "name": "volume-off.jpg",
+    "src": "/toggleTPR/volume-off.jpg"
+  },
+  {
+    "name": "volume-on.jpg",
+    "src": "/toggleTPR/volume-on.jpg"
+  },
+  {
+    "name": "wall-off.jpg",
+    "src": "/toggleTPR/wall-off.jpg"
+  },
+  {
+    "name": "wall-on.jpg",
+    "src": "/toggleTPR/wall-on.jpg"
+  },
+  {
+    "name": "washer-off.jpg",
+    "src": "/toggleTPR/washer-off.jpg"
+  },
+  {
+    "name": "washer-on.jpg",
+    "src": "/toggleTPR/washer-on.jpg"
+  },
+  {
+    "name": "washingmachine-off.jpg",
+    "src": "/toggleTPR/washingmachine-off.jpg"
+  },
+  {
+    "name": "washingmachine-on.jpg",
+    "src": "/toggleTPR/washingmachine-on.jpg"
+  },
+  {
+    "name": "whisper-off.jpg",
+    "src": "/toggleTPR/whisper-off.jpg"
+  },
+  {
+    "name": "whisper-on.jpg",
+    "src": "/toggleTPR/whisper-on.jpg"
+  },
+  {
+    "name": "window-off.jpg",
+    "src": "/toggleTPR/window-off.jpg"
+  },
+  {
+    "name": "window-on.jpg",
+    "src": "/toggleTPR/window-on.jpg"
+  },
+  {
+    "name": "zoom-off.jpg",
+    "src": "/toggleTPR/zoom-off.jpg"
+  },
+  {
+    "name": "zoom-on.jpg",
+    "src": "/toggleTPR/zoom-on.jpg"
+  }
+]
