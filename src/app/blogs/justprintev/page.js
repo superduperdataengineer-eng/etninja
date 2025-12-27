@@ -41,3 +41,8 @@
 //     </main>
 //   );
 // }
+
+export default function Page() {
+  return null;
+}
+
