@@ -1,40 +1,6 @@
-import fs from "fs";
-import path from "path";
-
-function getAllJsFiles(dir, root) {
-  let files = [];
-
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
-
-  for (const entry of entries) {
-    const fullPath = path.join(dir, entry.name);
-
-    if (entry.isDirectory()) {
-      files.push(...getAllJsFiles(fullPath, root));
-    } else if (entry.isFile() && entry.name.endsWith(".js")) {
-      files.push({
-        relativePath: fullPath
-          .replace(root, "")
-          .replace(/\\/g, "/"),
-        content: fs.readFileSync(fullPath, "utf8"),
-      });
-    }
-  }
-
-  return files;
-}
+import files from "../../../../js-files.json";
 
 export default function Page() {
-  const root = process.cwd();
-
-  const srcDir = path.join(root, "src");
-  const publicDir = path.join(root, "public");
-
-  const files = [
-    ...(fs.existsSync(srcDir) ? getAllJsFiles(srcDir, root) : []),
-    ...(fs.existsSync(publicDir) ? getAllJsFiles(publicDir, root) : []),
-  ];
-
   return (
     <main style={{ padding: 24, fontFamily: "monospace" }}>
       <h1>All .js Files (src + public)</h1>
