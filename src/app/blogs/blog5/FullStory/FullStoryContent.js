@@ -445,7 +445,7 @@ export default function FullStoryContent() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const scrollRef = useRef(null);
-  const langMap = { EN: 'en', PT: 'pt', ES: 'es', IT: 'it', FR: 'fr', DE: 'de', JA: 'ja' };
+  const langMap = { EN: 'en', PT: 'pt', ES: 'es', IT: 'it', FR: 'fr', DE: 'de', JA: 'ja', NL: 'nl' };
 
   const normalize = (str) => str.replace(/[–—]/g, '-').replace(/[“”]/g, '"').trim();
 
@@ -502,6 +502,11 @@ export default function FullStoryContent() {
         "Google 日本語",
         "Kyoko",
         "Microsoft Nanami"
+      ],
+      nl: [                      // <-- Dutch added
+        "Google Nederlands",
+        "Microsoft Renee",
+        "Microsoft Bert"
       ]
     };
 

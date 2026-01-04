@@ -1776,7 +1776,7 @@ export default function VocabQuiz() {
   const [highlightColor, setHighlightColor] = useState(null);
   const [quizFinished, setQuizFinished] = useState(false);
 
-  const langMap = { EN: 'en', PT: 'pt', ES: 'es', IT: 'it', FR: 'fr', DE: 'de', JA: 'ja' };
+  const langMap = { EN: 'en', PT: 'pt', ES: 'es', IT: 'it', FR: 'fr', DE: 'de', JA: 'ja', NL:'nl' };
 
   const normalize = (str) =>
     str.replace(/[–—]/g, '-').replace(/[“”]/g, '"').trim();

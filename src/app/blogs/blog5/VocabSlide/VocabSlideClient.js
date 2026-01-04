@@ -2345,7 +2345,7 @@ export default function VocabSlideClient() {
   const voicesLoadedRef = useRef(false);
   const voicesLoadPromiseRef = useRef(null);
 
-  const langMap = { EN: 'en', PT: 'pt', ES: 'es', IT: 'it', FR: 'fr', DE: 'de', JA: 'ja' };
+  const langMap = { EN: 'en', PT: 'pt', ES: 'es', IT: 'it', FR: 'fr', DE: 'de', JA: 'ja', NL: 'nl' };
 
   const normalize = (str) =>
     str.replace(/[–—]/g, '-').replace(/[“”]/g, '"').trim();
@@ -2558,7 +2558,8 @@ export default function VocabSlideClient() {
       fr: ["google français", "amélie", "microsoft sylvie", "microsoft remy"],
       de: ["google deutsch", "microsoft katja", "anna"],
       it: ["google italiano", "microsoft isabella", "alice"],
-      ja: ["google 日本語", "kyoko", "microsoft nanami"]
+      ja: ["google 日本語", "kyoko", "microsoft nanami"],
+      nl: ["google nederlands", "microsoft renee", "microsoft bert"]
     };
 
     const preferred = voiceCandidates[language] || [];

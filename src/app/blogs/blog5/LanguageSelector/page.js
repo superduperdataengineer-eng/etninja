@@ -15,6 +15,7 @@ export default function LanguageSelector() {
     { code: "fr", name: "Français", flag: "/flags/fr.jpg" },
     { code: "de", name: "Deutsch", flag: "/flags/de.jpg" },
     { code: "ja", name: "日本語", flag: "/flags/jp.jpg" },
+    { code: "nl", name: "Nederlands", flag: "/flags/nl.jpg" }
   ];
 
   const handleSelect = (langCode) => {

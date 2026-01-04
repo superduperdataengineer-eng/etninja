@@ -1219,7 +1219,7 @@ export default function StorySelector() {
   const [lang, setLang] = useState('EN');
   const [hoveredCard, setHoveredCard] = useState(null);
 
-  const langMap = { EN: 'en', PT: 'pt', ES: 'es', IT: 'it', FR: 'fr', DE: 'de', JA: 'ja' };
+  const langMap = { EN: 'en', PT: 'pt', ES: 'es', IT: 'it', FR: 'fr', DE: 'de', JA: 'ja', NL: 'nl' };
 
   useEffect(() => {
     const storedLang = (localStorage.getItem('selectedLanguage') || 'en').toUpperCase();
