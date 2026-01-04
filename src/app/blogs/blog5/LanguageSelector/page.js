@@ -89,7 +89,7 @@ export default function LanguageSelector() {
 
   // Determine number of flags per row and flag size
   const getLayout = () => {
-    if (windowWidth < 640) return { perRow: 1, flagSize: 80 };   // phones: 1 per row
+    if (windowWidth < 640) return { perRow: 1, flagSize: 140 };   // phones: 1 per row
     if (windowWidth < 1024) return { perRow: 3, flagSize: 100 };  // tablets: 3 per row
     return { perRow: 4, flagSize: 140 };                          // desktop: 4 per row
   };
