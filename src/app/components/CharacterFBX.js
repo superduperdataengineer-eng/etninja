@@ -1369,6 +1369,45 @@ const translations = {
     put_down: '내려놓기',
     grab_get: '잡기',
     pick_up_put_down: '줍기/내려놓기'
+  },
+    dutch: {
+    idle: 'Stilstaan',
+    walk: 'Lopen',
+    run: 'Rennen',
+    stretch: 'Rekken',
+    capoeira: 'Capoeira',
+    kicking: 'Schoppen',
+    jump: 'Springen',
+    pull: 'Trekken',
+    push: 'Duwen',
+    sit: 'Zitten',
+    pick_up_and_throw: 'Oppakken en Gooien',
+    trip_and_fall: 'Struikelen en Vallen',
+    turn: 'Draaien',
+    dance: 'Dansen',
+    turn_around: 'Omdraaien',
+    punching: 'Stoten',
+    hanging: 'Hangen',
+    lying: 'Liggen',
+    mission_impossible: 'Mission Impossible',
+    check_surroundings: 'Rondkijken',
+    play_golf: 'Golf Spelen',
+    land: 'Landen',
+    swimming: 'Zwemmen',
+    cartwheel: 'Radslag',
+    check_shoe: 'Schoen Controleren',
+    play_guitar: 'Gitaar Spelen',
+    shaking_hands: 'Handen Schudden',
+    pet_animal: 'Dier Aaien',
+    kneel_and_pray: 'Knielen en Bidden',
+    find: 'Vinden',
+    driving: 'Rijden',
+    blow_a_kiss: 'Kusje Gooien',
+    get_up: 'Opstaan',
+    open_close_go_in: 'Openen/Sluiten/Binnengaan',
+    put_down: 'Neerzetten',
+    grab_get: 'Grijpen',
+    pick_up_put_down: 'Oppakken/Neerzetten'
   }
 };
 
@@ -1515,7 +1554,8 @@ export default function CharacterFBX() {
     italian: 'it-IT',
     japanese: 'ja-JP',
     chinese: 'zh-CN',
-    korean: 'ko-KR'
+    korean: 'ko-KR',
+    dutch: 'nl-NL'
   };
 
   let cachedVoices = [];
