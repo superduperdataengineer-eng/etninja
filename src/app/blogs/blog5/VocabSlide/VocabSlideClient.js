@@ -3681,8 +3681,9 @@ export default function VocabSlideClient() {
       allVoices[0];
 
     const utter = new SpeechSynthesisUtterance(word);
-    utter.voice = selected;
-    utter.lang = selected?.lang || ttsLang;
+    if (selected) utter.voice = selected;
+    // utter.lang = selected?.lang || ttsLang;
+    utter.lang = ttsLang;
     utter.rate = baseLang === 'ja' ? 0.82 : 0.9;
     utter.pitch = 1;
 
