@@ -1647,7 +1647,7 @@ export default function CharacterFBX() {
           marginBottom: '12px',
         }}
         >
-           USE CHROME
+           {/* USE CHROME */}
         </div>
 
       {/* LANGUAGE SWITCH */}
