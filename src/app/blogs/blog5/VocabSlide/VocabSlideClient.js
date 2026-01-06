@@ -2808,6 +2808,17 @@ export default function VocabSlideClient() {
   const voicesLoadedRef = useRef(false);
   const voicesLoadPromiseRef = useRef(null);
 
+  const ttsLocaleMap = {
+    en: 'en-US',
+    pt: 'pt-BR',
+    es: 'es-ES',
+    fr: 'fr-FR',
+    de: 'de-DE',
+    it: 'it-IT',
+    ja: 'ja-JP',
+    nl: 'nl-NL'
+  };
+
   const langMap = { EN: 'en', PT: 'pt', ES: 'es', IT: 'it', FR: 'fr', DE: 'de', JA: 'ja', NL: 'nl' };
 
   const normalize = (str) =>
@@ -2995,17 +3006,6 @@ export default function VocabSlideClient() {
     const language = langMap[lang] || "en";
     // const text = word;
     let text = word.trim();
-    // 🔑 FIX: prevent Chrome from spelling short words
-    if (text.length <= 3) {
-      text = text + `\u00A0`;
-    }
-
-
-    // Chrome fix: prevent spelling for short words
-    if (text.length <= 3) {
-      text = text + '\u00A0'; // non-breaking space
-    }
-
 
     // Make sure this is called from a user gesture (onClick). iOS/Safari will mute otherwise.
     // Wait for voices to populate (Android/Edge need this)
@@ -3089,19 +3089,14 @@ export default function VocabSlideClient() {
       }
     }
 
-    // Build utterance
-    const utter = new SpeechSynthesisUtterance(text);
+   const utter = new SpeechSynthesisUtterance(text);
 
-    // Prefer selected voice if available
-    if (selectedVoice) {
-      utter.voice = selectedVoice;
-      // Some browsers expect utter.lang to match voice.lang
-      if (selectedVoice.lang) utter.lang = selectedVoice.lang;
-      else utter.lang = language;
-    } else {
-      // no voice found — still set lang to encourage correct phonetics
-      utter.lang = language;
-    }
+// 🔑 FORCE FULL LOCALE — THIS FIXES SPELLING
+utter.lang = ttsLocaleMap[language] || 'en-US';
+
+if (selectedVoice) {
+  utter.voice = selectedVoice;
+}
 
     // Per-platform rate tweaks
     utter.rate = isIOS ? 0.85 : 0.9;
@@ -3113,13 +3108,9 @@ export default function VocabSlideClient() {
     try {
       // speechSynthesis.cancel();
       // speechSynthesis.speak(utter);
-      speechSynthesis.resume();
-
-      if (speechSynthesis.speaking) {
-        speechSynthesis.cancel();
-      }
-
+      speechSynthesis.cancel();
       speechSynthesis.speak(utter);
+
 
 
     } catch (e) {
