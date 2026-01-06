@@ -2995,6 +2995,11 @@ export default function VocabSlideClient() {
     const language = langMap[lang] || "en";
     // const text = word;
     let text = word.trim();
+    // 🔑 FIX: prevent Chrome from spelling short words
+    if (text.length <= 3) {
+      text = text + `\u00A0`;
+    }
+
 
     // Chrome fix: prevent spelling for short words
     if (text.length <= 3) {
