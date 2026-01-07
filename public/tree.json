@@ -54,6 +54,16 @@
             "type": "folder",
             "children": [
               {
+                "name": "allCSV",
+                "type": "folder",
+                "children": [
+                  {
+                    "name": "page.js",
+                    "type": "file"
+                  }
+                ]
+              },
+              {
                 "name": "blog1",
                 "type": "folder",
                 "children": [
@@ -200,7 +210,37 @@
                 ]
               },
               {
+                "name": "kotlin",
+                "type": "folder",
+                "children": [
+                  {
+                    "name": "page.js",
+                    "type": "file"
+                  }
+                ]
+              },
+              {
+                "name": "kotlintree",
+                "type": "folder",
+                "children": [
+                  {
+                    "name": "page.js",
+                    "type": "file"
+                  }
+                ]
+              },
+              {
                 "name": "materialFolder",
+                "type": "folder",
+                "children": [
+                  {
+                    "name": "page.js",
+                    "type": "file"
+                  }
+                ]
+              },
+              {
+                "name": "rootfo",
                 "type": "folder",
                 "children": [
                   {
@@ -375,10 +415,6 @@
         "name": "actionCSV",
         "type": "folder",
         "children": [
-          {
-            "name": ".~lock.VocabularyCSV.csv#",
-            "type": "file"
-          },
           {
             "name": "LinesCSV.csv",
             "type": "file"
@@ -6178,6 +6214,20 @@
         ]
       },
       {
+        "name": "texts",
+        "type": "folder",
+        "children": [
+          {
+            "name": "kot.txt",
+            "type": "file"
+          },
+          {
+            "name": "kotTree.txt",
+            "type": "file"
+          }
+        ]
+      },
+      {
         "name": "thekid",
         "type": "folder",
         "children": [
@@ -7285,6 +7335,10 @@
       },
       {
         "name": "segredosecret.json",
+        "type": "file"
+      },
+      {
+        "name": "tree.json",
         "type": "file"
       },
       {
