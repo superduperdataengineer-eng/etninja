@@ -200,6 +200,20 @@
                 ]
               },
               {
+                "name": "flags",
+                "type": "folder",
+                "children": [
+                  {
+                    "name": "flagprintJSON.js",
+                    "type": "file"
+                  },
+                  {
+                    "name": "page.js",
+                    "type": "file"
+                  }
+                ]
+              },
+              {
                 "name": "justprintev",
                 "type": "folder",
                 "children": [
